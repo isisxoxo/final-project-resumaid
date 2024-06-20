@@ -1,0 +1,45 @@
+<h2>Create New User</h2>
+<div class="container">
+    <form method="POST" [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div>
+            Username: <input type="text" formControlName="username">
+            <!-- VALIDATIONS -->
+            <div *ngIf="form.get('username')?.hasError('required')">
+                Username is required.
+            </div>
+            <div *ngIf="form.get('username')?.hasError('minlength')">
+                Username min starts with 3 characters.
+            </div>
+            <div *ngIf="form.get('username')?.hasError('maxlength')">
+                Username max has 16 characters.
+            </div>
+        </div>
+        <div>
+            Email: <input type="text" formControlName="email">
+            <!-- VALIDATIONS -->
+            <div *ngIf="form.get('email')?.hasError('required')">
+                Email is required.
+            </div>
+            <div *ngIf="form.get('email')?.hasError('email')">
+                Enter email format.
+            </div>
+        </div>
+        <div>
+            Password: <input type="password" formControlName="password">
+            <!-- VALIDATIONS -->
+            <div *ngIf="form.get('password')?.hasError('required')">
+                Password is required.
+            </div>
+        </div>
+        <br>
+        <div>
+            <button type="submit" [disabled]="form.invalid">Register</button>
+        </div>
+    </form>
+    <br>
+    <div *ngIf="error">
+        {{this.errorMsg}}
+        <br>
+        <button [routerLink]="['/login']">Login</button>
+    </div>
+</div>
