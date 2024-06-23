@@ -30,6 +30,9 @@ public class JwtFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
+
+        System.out.println(">>>>>>> IN JWT FILTER");
+
         final String authorizationHeader = request.getHeader("Authorization");
 
         String email = null;
@@ -37,7 +40,11 @@ public class JwtFilter extends OncePerRequestFilter {
 
         // If header that starts with "Bearer " is present:
         if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
+
             jwt = authorizationHeader.substring(7); // Obtain JWTs
+
+            System.out.println(">>>>>>> JWT: " + jwt);
+
             try {
                 email = jwtUtil.extractEmail(jwt); // Extract email from JWT
             } catch (ExpiredJwtException e) {

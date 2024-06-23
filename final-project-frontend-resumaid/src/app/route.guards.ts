@@ -4,7 +4,7 @@ import { Observable } from "rxjs"
 import { JwtService } from "./services/jwt.service";
 
 
-export const enterMain: CanActivateFn = 
+export const enterRestricted: CanActivateFn = 
     (route: ActivatedRouteSnapshot, state: RouterStateSnapshot)
         : boolean | Promise<boolean> | Observable<boolean> => {
 
@@ -23,6 +23,12 @@ export const enterMain: CanActivateFn =
         console.log("If params wrong...")
         router.navigate(['/login']);
         return false;            
+    } else if (jwtService.isTokenExpired(jwt)) {
+        //If token exists but is expired -> remove token
+        console.log("Token expired, removing token...")
+        jwtService.removeToken();
+        router.navigate(['/login']);
+        return false;
     } else {
         console.log("If token exists...")
         return true;

@@ -27,9 +27,6 @@ public class UserService {
     @Autowired
     private JwtUtil jwtUtil;
 
-    @Autowired
-    private EmailService emailService;
-
     // C
     public Map<String, String> registerNewUserAccount(User user) throws EmailExistsException {
 
@@ -44,8 +41,6 @@ public class UserService {
         newUser.setEmail(user.getEmail());
         newUser.setPassword(passwordEncoder.encode(user.getPassword()));
         String id = userRepo.saveUser(newUser);
-
-        emailService.sendRegistrationEmail(newUser.getEmail(), newUser.getUsername());
 
         Map<String, String> result = new HashMap<>();
         result.put("jwt", jwtUtil.generateToken(newUser.getEmail(), id));

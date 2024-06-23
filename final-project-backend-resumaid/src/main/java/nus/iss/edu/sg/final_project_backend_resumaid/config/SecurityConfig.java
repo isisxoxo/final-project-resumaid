@@ -35,11 +35,14 @@ public class SecurityConfig {
     // Configuring HttpSecurity
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+
         return http.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth.requestMatchers("/api/register", "/api/login").permitAll()) // Public
-                .authorizeHttpRequests(auth -> auth.requestMatchers("/api/user/**").authenticated()) // Only upon login
+                .authorizeHttpRequests(auth -> auth.requestMatchers("/api/create/**").authenticated())
+                // Only upon login
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
+
 }

@@ -1,0 +1,9 @@
+<h2>Resume Preview</h2>
+<div *ngIf="savedResume$ | async as r">
+    <h3>{{r.fullname | titlecase}}</h3>
+    <div *ngFor="let e of r.education">
+        {{e.eName}}
+        {{e.ePoints}}
+        <li [innerHTML]="e.ePoints.replaceAll('\n', '\<li>')">
+    </div>
+</div>

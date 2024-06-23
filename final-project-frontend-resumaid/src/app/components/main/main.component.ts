@@ -1,15 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { JwtService } from '../../services/jwt.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
   styleUrl: './main.component.css'
 })
-export class MainComponent {
+export class MainComponent implements OnInit {
   
-  constructor(private jwtSvc: JwtService, private router: Router){
+  id!: string
+  
+  constructor(private jwtSvc: JwtService, private router: Router, private activatedRoute: ActivatedRoute){
+  }
+
+  ngOnInit(): void {
+    this.id = this.activatedRoute.snapshot.params['id']
   }
 
   logout() {

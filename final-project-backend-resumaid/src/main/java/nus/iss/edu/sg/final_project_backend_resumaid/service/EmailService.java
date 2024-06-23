@@ -16,7 +16,7 @@ public class EmailService {
         msg.setFrom("noreply@resumaid.com");
         msg.setTo(toEmail);
         msg.setSubject("Welcome to Resumaid!");
-        msg.setText("Thanks for signing up with Resumaid " + username);
+        msg.setText("Thanks for signing up with Resumaid " + username + "!");
         emailSender.send(msg);
     }
 }

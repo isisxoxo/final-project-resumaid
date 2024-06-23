@@ -22,12 +22,12 @@ export class jwtInterceptor implements HttpInterceptor {
     console.log("TOKEN IS PRESENT!!!!!")
 
       // If token is expired
-      if (this.isTokenExpired(jwtToken)) {
+      if (this.jwtService.isTokenExpired(jwtToken)) {
 
         console.log("TOKEN IS EXPIRED!!!!!")
 
         this.jwtService.removeToken(); // Remove token
-        window.location.href = '/login'; // Redirect to login page
+        this.router.navigate(['/login']);; // Redirect to login page
         return throwError(() => 'Token Expired');
       }
 
@@ -59,17 +59,4 @@ export class jwtInterceptor implements HttpInterceptor {
     }
   }
 
-  private isTokenExpired(token: string): boolean {
-    const expiry = this.getExpiryTimeFromToken(token);
-    return expiry ? Date.now() >= expiry * 1000 : true;
-  }
-
-  private getExpiryTimeFromToken(token: string): number | null {
-    try {
-      const jwtPayload = JSON.parse(atob(token.split('.')[1]));
-      return jwtPayload.exp;
-    } catch (error) {
-      return null;
-    }
-  }
 }

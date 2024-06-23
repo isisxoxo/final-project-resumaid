@@ -1,0 +1,124 @@
+<h2>Resume Builder</h2>
+<div>
+    <form method="POST" [formGroup]="resumeForm" (ngSubmit)="onSubmit()">
+
+        <div>
+            Full Name: <input type="text" formControlName="fullname">
+            <!-- VALIDATIONS -->
+            <div *ngIf="resumeForm.get('fullname')?.hasError('required')">
+                Full name is required.
+            </div>
+        </div>
+
+        <div>
+            Phone Number: <input type="text" formControlName="phone">
+            <!-- VALIDATIONS -->
+            <div *ngIf="resumeForm.get('phone')?.hasError('required')">
+                Phone number is required.
+            </div>
+        </div>
+
+        <div>
+            Email: <input type="text" formControlName="email">
+            <!-- VALIDATIONS -->
+            <div *ngIf="resumeForm.get('email')?.hasError('required')">
+                Email is required.
+            </div>
+            <div *ngIf="resumeForm.get('email')?.hasError('email')">
+                Enter email format.
+            </div>
+        </div>
+
+        <div>
+            Profile Picture: <input type="file" class="form-control" formControlName="mypic"
+                (change)="onFileSelect($event)">
+            <!-- DISPLAY FILE NAME -->
+            <div>{{fileName}}</div>
+            <br>
+            <!-- DISPLAY IMAGE PREVIEW -->
+            <div *ngIf="previewUrl">
+                <h6>Image Preview:</h6>
+                <img [src]="previewUrl" height="100">
+            </div>
+        </div>
+
+        <div>
+            <div>
+                <button type="button" (click)="addNewEducation()">Add New Education</button>
+            </div>
+            <div *ngIf="educationArray.controls.length > 0"> <!-- Conditionally render table -->
+                <div formArrayName="education">
+                    <div *ngFor="let edu of educationArray.controls; let i = index" [formGroupName]="i">
+                        Education Name: <input type="text" formControlName="eName">
+                        Education Country: <input type="text" formControlName="eCountry">
+                        Education Certification: <input type="text" formControlName="eCert">
+                        Education From: <input type="date" formControlName="eFrom">
+                        Current? <input type="checkbox" (change)="isEChecked($event,i)" formControlName="eCurrent">
+                        Education To: <input type="date" formControlName="eTo">
+                        Education Description: <textarea formControlName="ePoints"></textarea>
+                        <br>
+                        <button type="button" (click)="deleteEducation(i)">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <div>
+            <div>
+                <button type="button" (click)="addNewWork()">Add New Work</button>
+            </div>
+            <div *ngIf="workArray.controls.length > 0"> <!-- Conditionally render table -->
+                <div formArrayName="work">
+                    <div *ngFor="let w of workArray.controls; let i = index" [formGroupName]="i">
+                        Company: <input type="text" formControlName="wName">
+                        Work Country: <input type="text" formControlName="wCountry">
+                        Role: <input type="text" formControlName="wRole">
+                        Work From: <input type="date" formControlName="wFrom">
+                        Current? <input type="checkbox" (change)="isWChecked($event,i)" formControlName="wCurrent">
+                        Work To: <input type="date" formControlName="wTo">
+                        Work Description: <textarea formControlName="wPoints"></textarea>
+                        <br>
+                        <button type="button" (click)="deleteWork(i)">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <div>
+            <div>
+                <button type="button" (click)="addNewCca()">Add New Co-curricular Activities/Competitions</button>
+            </div>
+            <div *ngIf="ccaArray.controls.length > 0"> <!-- Conditionally render table -->
+                <div formArrayName="cca">
+                    <div *ngFor="let c of ccaArray.controls; let i = index" [formGroupName]="i">
+                        Activity: <input type="text" formControlName="cName">
+                        Country: <input type="text" formControlName="cCountry">
+                        Title: <input type="text" formControlName="cTitle">
+                        Activity From: <input type="date" formControlName="cFrom">
+                        Current? <input type="checkbox" (change)="isCChecked($event,i)" formControlName="cCurrent">
+                        Activity To: <input type="date" formControlName="cTo">
+                        Description: <textarea formControlName="cPoints"></textarea>
+                        <br>
+                        <button type="button" (click)="deleteCca(i)">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <div>
+            Additional Information: <textarea formControlName="additional"></textarea>
+        </div>
+
+        <br>
+        <div>
+            <button type="submit" [disabled]="resumeForm.invalid">Save</button>
+        </div>
+    </form>
+    <br>
+</div>

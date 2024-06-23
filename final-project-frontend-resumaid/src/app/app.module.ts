@@ -12,12 +12,20 @@ import { UserService } from './services/user.service';
 import { MainComponent } from './components/main/main.component';
 import { JwtService } from './services/jwt.service';
 import { jwtInterceptor } from './jwt.interceptor';
-import { enterMain } from './route.guards';
+import { enterRestricted } from './route.guards';
+import { CreateComponent } from './components/create/create.component';
+import { TemplateselectorComponent } from './components/create/templateselector.component';
+import { ResumebuilderComponent } from './components/create/resumebuilder.component';
+import { ResumepreviewComponent } from './components/create/resumepreview.component';
+import { ChatgptComponent } from './components/create/chatgpt.component';
+import { ResumeService } from './services/resume.service';
+import { ResumeStore } from './services/resume.store';
 
 const appRoutes: Routes = [
   {path: '', component: RegistrationComponent},
   {path: 'login', component: LoginComponent},
-  {path: 'main/:id', component: MainComponent, canActivate: [enterMain]},
+  {path: 'main/:id', component: MainComponent, canActivate: [enterRestricted]},
+  {path: 'create/:id', component: CreateComponent, canActivate: [enterRestricted]},
   {path: '**', redirectTo:'/', pathMatch: 'full'}
 ]
 
@@ -26,17 +34,24 @@ const appRoutes: Routes = [
     AppComponent,
     RegistrationComponent,
     LoginComponent,
-    MainComponent
+    MainComponent,
+    CreateComponent,
+    TemplateselectorComponent,
+    ResumebuilderComponent,
+    ResumepreviewComponent,
+    ChatgptComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes, {useHash: true})
   ],
-  providers: [UserService, 
+  providers: [UserService,
     JwtService, 
+    ResumeService,
+    ResumeStore,
     { provide: HTTP_INTERCEPTORS, useClass: jwtInterceptor, multi: true } // All classes have this
   ],
   bootstrap: [AppComponent]

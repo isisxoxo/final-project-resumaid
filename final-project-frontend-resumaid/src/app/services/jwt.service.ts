@@ -27,4 +27,18 @@ export class JwtService {
       return null;
     }
   }
+
+  isTokenExpired(token: string): boolean {
+    const expiry = this.getExpiryTimeFromToken(token);
+    return expiry ? Date.now() >= expiry * 1000 : true;
+  }
+
+  private getExpiryTimeFromToken(token: string): number | null {
+    try {
+      const jwtPayload = JSON.parse(atob(token.split('.')[1]));
+      return jwtPayload.exp;
+    } catch (error) {
+      return null;
+    }
+  }
 }

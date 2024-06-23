@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import jakarta.json.Json;
 import nus.iss.edu.sg.final_project_backend_resumaid.exceptions.EmailExistsException;
 import nus.iss.edu.sg.final_project_backend_resumaid.model.User;
+import nus.iss.edu.sg.final_project_backend_resumaid.service.EmailService;
 import nus.iss.edu.sg.final_project_backend_resumaid.service.UserService;
 
 @RestController
@@ -24,13 +25,19 @@ public class LoginRestController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private EmailService emailService;
+
     // Registration
     @PostMapping("/register")
     public ResponseEntity<String> postRegisterNewUserAccount(@RequestBody User user) {
 
         try {
             Map<String, String> result = userService.registerNewUserAccount(user);
-            // ***TO ADD: SEND EMAIL UPON REGISTRATION
+
+            // Send email upon registration
+            emailService.sendRegistrationEmail(user.getEmail(), user.getUsername());
+
             return ResponseEntity.status(201)
                     .header(HttpHeaders.AUTHORIZATION, "Bearer " + result.get("jwt")) // Set JWT in response header
                     .body(Json.createObjectBuilder().add("id", result.get("id")).build().toString());
