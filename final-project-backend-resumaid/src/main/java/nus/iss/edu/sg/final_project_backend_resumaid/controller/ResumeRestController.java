@@ -24,6 +24,7 @@ import nus.iss.edu.sg.final_project_backend_resumaid.model.Cca;
 import nus.iss.edu.sg.final_project_backend_resumaid.model.Education;
 import nus.iss.edu.sg.final_project_backend_resumaid.model.Work;
 import nus.iss.edu.sg.final_project_backend_resumaid.service.ResumeService;
+import nus.iss.edu.sg.final_project_backend_resumaid.service.UserService;
 
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,6 +35,9 @@ public class ResumeRestController {
 
     @Autowired
     private ResumeService resumeService;
+
+    @Autowired
+    private UserService userService;
 
     @PostMapping(path = "/{userId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<String> postNewResume(@PathVariable String userId,
@@ -72,8 +76,7 @@ public class ResumeRestController {
         Cca[] ccaArray = objectMapper.readValue(ccaJson, Cca[].class);
         List<Cca> cca = Arrays.asList(ccaArray);
 
-        String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
-        String jwt = authHeader.substring(7);
+        String jwt = userService.getJwtFromHeader(request);
 
         JsonObject payload;
 

@@ -1,0 +1,24 @@
+.resume-preview {
+    /* width: 210mm
+    height: 297mm */
+    /* width: 140mm;
+    height: 198mm; */
+    aspect-ratio: 210 / 297;
+    height: 100%;
+    /* transform-origin: top;
+    transform: scale(210/297); */
+    border: 1px solid black;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.resume-text {
+    overflow: hidden;
+    flex: 1;
+    font-size: 0.7vw;
+}
+
+h3 { 
+    font-size: 1.5vw;
+}

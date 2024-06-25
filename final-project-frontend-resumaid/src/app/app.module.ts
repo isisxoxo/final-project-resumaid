@@ -17,9 +17,11 @@ import { CreateComponent } from './components/create/create.component';
 import { TemplateselectorComponent } from './components/create/templateselector.component';
 import { ResumebuilderComponent } from './components/create/resumebuilder.component';
 import { ResumepreviewComponent } from './components/create/resumepreview.component';
-import { ChatgptComponent } from './components/create/chatgpt.component';
 import { ResumeService } from './services/resume.service';
 import { ResumeStore } from './services/resume.store';
+import { OllamaService } from './services/ollama.service';
+import { OllamaComponent } from './components/create/ollama.component';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 const appRoutes: Routes = [
   {path: '', component: RegistrationComponent},
@@ -39,7 +41,7 @@ const appRoutes: Routes = [
     TemplateselectorComponent,
     ResumebuilderComponent,
     ResumepreviewComponent,
-    ChatgptComponent
+    OllamaComponent
   ],
   imports: [
     BrowserModule,
@@ -52,7 +54,9 @@ const appRoutes: Routes = [
     JwtService, 
     ResumeService,
     ResumeStore,
-    { provide: HTTP_INTERCEPTORS, useClass: jwtInterceptor, multi: true } // All classes have this
+    OllamaService,
+    { provide: HTTP_INTERCEPTORS, useClass: jwtInterceptor, multi: true },
+    provideAnimationsAsync() // All classes have this
   ],
   bootstrap: [AppComponent]
 })

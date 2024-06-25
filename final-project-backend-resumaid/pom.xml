@@ -41,7 +41,24 @@
 			<groupId>org.springframework.ai</groupId>
 			<artifactId>spring-ai-openai-spring-boot-starter</artifactId>
 		</dependency> -->
-
+		<!-- https://www.baeldung.com/java-langchain-basics -->
+		<!-- <dependency>
+			<groupId>dev.langchain4j</groupId>
+			<artifactId>langchain4j</artifactId>
+			<version>0.23.0</version>
+		</dependency> -->
+		<!-- LOCAL AI: https://mydeveloperplanet.com/2024/01/10/how-to-use-langchain4j-with-localai/ -->
+		<!-- <dependency>
+			<groupId>dev.langchain4j</groupId>
+			<artifactId>langchain4j-local-ai</artifactId>
+			<version>0.24.0</version>
+		</dependency> -->
+		<!-- OLLAMA -->
+		<dependency>
+			<groupId>io.github.amithkoujalgi</groupId>
+			<artifactId>ollama4j</artifactId>
+			<version>1.0.47</version>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>

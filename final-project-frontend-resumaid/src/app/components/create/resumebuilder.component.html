@@ -1,4 +1,3 @@
-<h2>Resume Builder</h2>
 <div>
     <form method="POST" [formGroup]="resumeForm" (ngSubmit)="onSubmit()">
 
@@ -58,6 +57,10 @@
                         Education Description: <textarea formControlName="ePoints"></textarea>
                         <br>
                         <button type="button" (click)="deleteEducation(i)">Delete</button>
+                        <button type="button" (click)="improveEducation(i)">Improve Using AI</button>
+                        <div *ngIf="isEduOllama && (eduIndex == i)">
+                            <app-ollama [message]="onEduOllamaClick"></app-ollama>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -81,6 +84,10 @@
                         Work Description: <textarea formControlName="wPoints"></textarea>
                         <br>
                         <button type="button" (click)="deleteWork(i)">Delete</button>
+                        <button type="button" (click)="improveWork(i)">Improve Using AI</button>
+                        <div *ngIf="isWorkOllama && (workIndex == i)">
+                            <app-ollama [message]="onWorkOllamaClick"></app-ollama>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -104,6 +111,10 @@
                         Description: <textarea formControlName="cPoints"></textarea>
                         <br>
                         <button type="button" (click)="deleteCca(i)">Delete</button>
+                        <button type="button" (click)="improveCca(i)">Improve Using AI</button>
+                        <div *ngIf="isCcaOllama && (ccaIndex == i)">
+                            <app-ollama [message]="onCcaOllamaClick"></app-ollama>
+                        </div>
                     </div>
                 </div>
             </div>

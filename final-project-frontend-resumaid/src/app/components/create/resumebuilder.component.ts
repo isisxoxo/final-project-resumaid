@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { ResumeService } from '../../services/resume.service';
 import { ResumeStore } from '../../services/resume.store';
 
@@ -10,7 +10,7 @@ import { ResumeStore } from '../../services/resume.store';
   templateUrl: './resumebuilder.component.html',
   styleUrl: './resumebuilder.component.css'
 })
-export class ResumebuilderComponent implements OnInit {
+export class ResumebuilderComponent implements OnInit, OnDestroy {
 
   userId!: string
 
@@ -21,6 +21,18 @@ export class ResumebuilderComponent implements OnInit {
   workArray!: FormArray
   ccaArray!: FormArray
 
+  isEduOllama = false
+  eduIndex!: number
+  onEduOllamaClick!: string
+
+  isWorkOllama = false
+  workIndex!: number
+  onWorkOllamaClick!: string
+
+  isCcaOllama = false
+  ccaIndex!: number
+  onCcaOllamaClick!: string
+
   saveNewResume$!: Observable<Object>
 
   constructor(private fb: FormBuilder, private router: Router, private resumeStore: ResumeStore,
@@ -28,6 +40,7 @@ export class ResumebuilderComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
     this.educationArray = this.fb.array([])
     this.workArray = this.fb.array([])
     this.ccaArray = this.fb.array([])
@@ -72,6 +85,7 @@ export class ResumebuilderComponent implements OnInit {
 
   deleteEducation(idx: number) {
     this.educationArray.removeAt(idx)
+    this.isEduOllama = false
   }
 
   addNewWork() {
@@ -99,6 +113,7 @@ export class ResumebuilderComponent implements OnInit {
 
   deleteWork(idx: number) {
     this.workArray.removeAt(idx)
+    this.isWorkOllama = false
   }
 
   addNewCca() {
@@ -126,6 +141,7 @@ export class ResumebuilderComponent implements OnInit {
 
   deleteCca(idx: number) {
     this.ccaArray.removeAt(idx)
+    this.isCcaOllama = false
   }
 
   onFileSelect(event: any) {
@@ -148,6 +164,30 @@ export class ResumebuilderComponent implements OnInit {
       })
     }
 
+  }
+
+  improveEducation(idx: number) {
+    if (this.educationArray.at(idx).get('ePoints')?.value) { //Only call Ollama if got value
+      this.isEduOllama = true
+      this.eduIndex = idx
+      this.onEduOllamaClick = this.educationArray.at(idx).get("ePoints")?.value
+    }
+  }
+
+  improveWork(idx: number) {
+    if (this.workArray.at(idx).get('wPoints')?.value) {
+      this.isWorkOllama = true
+      this.workIndex = idx
+      this.onWorkOllamaClick = this.workArray.at(idx).get("wPoints")?.value
+    }
+  }
+
+  improveCca(idx: number) {
+    if (this.ccaArray.at(idx).get('cPoints')?.value) {
+      this.isCcaOllama = true
+      this.ccaIndex = idx
+      this.onCcaOllamaClick = this.ccaArray.at(idx).get("cPoints")?.value
+    }
   }
 
   onSubmit() {
@@ -197,4 +237,10 @@ export class ResumebuilderComponent implements OnInit {
 
     this.router.navigate(['/']) //TO CHANGE TO NEXT PAGE (STEP 3)
   }
+
+
+  ngOnDestroy(): void {
+    this.resumeForm.reset()
+  }
+
 }

@@ -7,9 +7,11 @@ import java.util.Optional;
 import javax.security.auth.login.LoginException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import jakarta.servlet.http.HttpServletRequest;
 import nus.iss.edu.sg.final_project_backend_resumaid.exceptions.EmailExistsException;
 import nus.iss.edu.sg.final_project_backend_resumaid.model.User;
 import nus.iss.edu.sg.final_project_backend_resumaid.repository.UserRepo;
@@ -67,5 +69,12 @@ public class UserService {
         }
         // Login email and/or password is wrong
         throw new LoginException("Email and/or Password is incorrect. Please try again.");
+    }
+
+    // FOR GETTING JWT FROM HEADER
+    public String getJwtFromHeader(HttpServletRequest request) {
+        String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
+        String jwt = authHeader.substring(7);
+        return jwt;
     }
 }
