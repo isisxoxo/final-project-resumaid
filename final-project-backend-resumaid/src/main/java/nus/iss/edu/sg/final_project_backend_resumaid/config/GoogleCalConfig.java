@@ -1,72 +1,76 @@
-// package nus.iss.edu.sg.final_project_backend_resumaid.config;
+/* SERVICE ACCOUNT */
+package nus.iss.edu.sg.final_project_backend_resumaid.config;
 
-// import java.io.File;
-// import java.io.FileInputStream;
-// import java.io.InputStream;
-// import java.util.Collections;
-// import java.util.List;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.util.Collections;
+import java.util.List;
 
-// import org.springframework.beans.factory.annotation.Value;
-// import org.springframework.context.annotation.Bean;
-// import org.springframework.context.annotation.Configuration;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
-// import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
-// import com.google.api.client.http.HttpRequestInitializer;
-// import com.google.api.client.http.HttpTransport;
-// import com.google.api.client.json.JsonFactory;
-// import com.google.api.client.json.gson.GsonFactory;
-// import com.google.api.services.calendar.Calendar;
-// import com.google.api.services.calendar.CalendarScopes;
-// import com.google.auth.http.HttpCredentialsAdapter;
-// import com.google.auth.oauth2.GoogleCredentials;
+import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
+import com.google.api.client.http.HttpRequestInitializer;
+import com.google.api.client.http.HttpTransport;
+import com.google.api.client.json.JsonFactory;
+import com.google.api.client.json.gson.GsonFactory;
+import com.google.api.services.calendar.Calendar;
+import com.google.api.services.calendar.CalendarScopes;
+import com.google.auth.http.HttpCredentialsAdapter;
+import com.google.auth.oauth2.GoogleCredentials;
 
-// import nus.iss.edu.sg.final_project_backend_resumaid.exceptions.GoogleCalException;
+import nus.iss.edu.sg.final_project_backend_resumaid.exceptions.GoogleCalException;
 
-// @Configuration
-// public class GoogleCalConfig {
+@Configuration
+public class GoogleCalConfig {
 
-//     @Value("${spring.application.name}")
-//     private String applicationName;
+    @Value("${spring.application.name}")
+    private String applicationName;
 
-//     @Value("${google.credentials.filepath}")
-//     private String credentialsFilePath;
+    @Value("${google.credentials.filepath}")
+    private String credentialsFilePath;
 
-//     private JsonFactory jsonFactory = GsonFactory.getDefaultInstance();
+    private JsonFactory jsonFactory = GsonFactory.getDefaultInstance();
 
-//     private final List<String> SCOPES = Collections.singletonList(CalendarScopes.CALENDAR);
+    private final List<String> SCOPES = Collections.singletonList(CalendarScopes.CALENDAR);
 
-//     @Bean
-//     // public Calendar buildGoogleCal() {
-//     public Calendar buildGoogleCal() throws GoogleCalException {
+    @Bean
+    public Calendar buildGoogleCal() throws GoogleCalException {
 
-//         GoogleCredentials credential;
-//         Calendar calendar;
+        GoogleCredentials credential;
+        Calendar calendar;
 
-//         try {
-//             InputStream credentialsStream = getClass().getResourceAsStream(credentialsFilePath);
-//             credential = GoogleCredentials
-//                     .fromStream(credentialsStream)
-//                     .createScoped(SCOPES);
+        try {
+            InputStream credentialsStream = getClass().getResourceAsStream(credentialsFilePath);
+            credential = GoogleCredentials
+                    .fromStream(credentialsStream)
+                    .createScoped(SCOPES);
 
-//             credential.refreshIfExpired();
+            credential.refreshIfExpired();
 
-//             System.out.println("CREDENTIAL: " + credential);
+            System.out.println("CREDENTIAL: " + credential);
 
-//             HttpRequestInitializer requestInitializer = new HttpCredentialsAdapter(credential);
-//             HttpTransport httpTransport = GoogleNetHttpTransport.newTrustedTransport();
+            HttpRequestInitializer requestInitializer = new HttpCredentialsAdapter(credential);
+            HttpTransport httpTransport = GoogleNetHttpTransport.newTrustedTransport();
 
-//             calendar = new Calendar.Builder(httpTransport, jsonFactory, requestInitializer)
-//                     .setApplicationName(applicationName).build();
+            calendar = new Calendar.Builder(httpTransport, jsonFactory, requestInitializer)
+                    .setApplicationName(applicationName).build();
 
-//         } catch (Exception e) {
-//             // e.printStackTrace();
-//             throw new GoogleCalException("Cannot find Google Calendar");
-//         }
-//         return calendar;
-//     }
-// }
+        } catch (Exception e) {
+            // e.printStackTrace();
+            throw new GoogleCalException("Cannot find Google Calendar");
+        }
+        return calendar;
+    }
+}
 
 
+
+
+
+/* OAUTH:
 package nus.iss.edu.sg.final_project_backend_resumaid.config;
 
 import com.google.api.client.auth.oauth2.Credential;
@@ -81,6 +85,8 @@ import com.google.api.client.json.gson.GsonFactory;
 import com.google.api.client.util.store.FileDataStoreFactory;
 import com.google.api.services.calendar.Calendar;
 import com.google.api.services.calendar.CalendarScopes;
+import com.google.auth.oauth2.GoogleCredentials;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -135,3 +141,4 @@ public class GoogleCalConfig {
         return new AuthorizationCodeInstalledApp(flow, receiver).authorize("user");
     }
 }
+ */

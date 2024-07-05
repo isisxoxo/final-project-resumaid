@@ -29,7 +29,7 @@ public class FinalProjectBackendResumaidApplication implements CommandLineRunner
 		// DateTime now = new DateTime(System.currentTimeMillis());
 		// List<Event> bookings = googleCalSvc.getFutureEvents(now);
 		// System.out.println(">>>>> BOOKINGS: " + bookings);
-		// googleCalSvc.setBooking("6vd6demgkqblk76pggdpa0o0a5_20240701T010000Z", "33ad60c7");
+		// googleCalSvc.setBooking("6vd6demgkqblk76pggdpa0o0a5_20240708T010000Z", "620d4f84");
 	}
 
 }

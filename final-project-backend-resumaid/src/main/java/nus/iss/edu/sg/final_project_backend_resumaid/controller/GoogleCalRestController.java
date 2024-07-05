@@ -30,6 +30,7 @@ public class GoogleCalRestController {
 
     @Autowired
     private UserService userService;
+    
 
     // GET AVAILABLE TIME SLOTS
     @GetMapping("/available")
@@ -79,5 +80,4 @@ public class GoogleCalRestController {
         // DateTime now = new DateTime(System.currentTimeMillis());
         return new String();
     }
-
 }

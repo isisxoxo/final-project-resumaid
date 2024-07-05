@@ -38,6 +38,9 @@ export class ConsultationComponent implements OnInit {
     const enddate = new Date(this.dateForm.get("endDate")?.value)
     enddate.setHours(23, 59, 59, 999);
 
+    console.log("START DATE:", startdate.toISOString())
+    console.log("END DATE:", enddate.toISOString())
+
     this.availableBookings$ = this.consultationSvc.getAvailableBookings(startdate.toISOString(), enddate.toISOString())
     this.availableBookings$.subscribe(
       data => {

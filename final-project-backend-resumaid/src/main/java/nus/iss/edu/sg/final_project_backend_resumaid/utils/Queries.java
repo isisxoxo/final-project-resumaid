@@ -23,8 +23,8 @@ public interface Queries {
 
         // C (google calendar)
         public static final String INSERT_BOOKING = """
-                        insert into bookings (id, userid, starttime, endtime)
-                        values (?, ?, ?, ?);
+                        insert into bookings (id, userid, starttime, endtime, meetinglink)
+                        values (?, ?, ?, ?, ?);
                         """;
 
         // R (google calendar)

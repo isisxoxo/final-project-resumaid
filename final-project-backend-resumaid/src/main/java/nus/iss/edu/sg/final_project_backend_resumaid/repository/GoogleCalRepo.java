@@ -1,7 +1,12 @@
 package nus.iss.edu.sg.final_project_backend_resumaid.repository;
 
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.TimeZone;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -20,10 +25,19 @@ public class GoogleCalRepo implements Queries {
     JdbcTemplate template;
 
     // Insert new booking (Google Calendar)
-    public Integer saveBooking(Booking newBooking) {
+    public Integer saveBooking(Booking newBooking) throws ParseException {
+
+        // DateTime -> Timestamp -> Formatted DateTime
+        DateTime startTime = newBooking.getStarttime();
+        DateTime endTime = newBooking.getEndtime();
+
+        Timestamp startTimestamp = new Timestamp(startTime.getValue());
+        Timestamp endTimestamp = new Timestamp(endTime.getValue());
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         Integer insertCount = template.update(INSERT_BOOKING, newBooking.getId(), newBooking.getUserid(),
-                newBooking.getStarttime(), newBooking.getEndtime());
+                sdf.format(startTimestamp), sdf.format(endTimestamp), newBooking.getMeetinglink());
 
         return insertCount;
     }
@@ -40,6 +54,7 @@ public class GoogleCalRepo implements Queries {
             booking.setUserid(rs.getString("userid"));
             booking.setStarttime((DateTime) rs.getObject("starttime"));
             booking.setEndtime((DateTime) rs.getObject("endtime"));
+            booking.setMeetinglink(rs.getString("meetinglink"));
             bookings.add(booking);
         }
         return bookings;

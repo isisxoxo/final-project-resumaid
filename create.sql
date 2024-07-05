@@ -17,6 +17,7 @@ create table bookings (
     userid varchar(8) not null,
     starttime datetime not null,
     endtime datetime not null,
+    meetinglink varchar(128) not null,
     primary key(id),
     constraint fk_user_id foreign key(userid)
         references users(id)

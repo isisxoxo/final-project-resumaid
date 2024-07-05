@@ -15,4 +15,5 @@ public class Booking {
     private String userid;
     private DateTime starttime;
     private DateTime endtime;
+    private String meetinglink;
 }

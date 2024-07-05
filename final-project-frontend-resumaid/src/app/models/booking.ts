@@ -3,4 +3,5 @@ export interface Booking {
     userid: string
     starttime: Date
     endtime: Date
+    meetinglink: string
 }
