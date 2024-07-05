@@ -1,9 +1,11 @@
-import { Component, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { ResumeService } from '../../services/resume.service';
 import { ResumeStore } from '../../services/resume.store';
+import { resume } from '../../models/resume';
+import { ImageStore } from '../../services/image.store';
 
 @Component({
   selector: 'app-resumebuilder',
@@ -12,14 +14,21 @@ import { ResumeStore } from '../../services/resume.store';
 })
 export class ResumebuilderComponent implements OnInit, OnDestroy {
 
+  id!: string
+  getResumeById$!: Observable<resume>
+
   userId!: string
+  defaultTitle!: string
 
   resumeForm!: FormGroup
   fileName: string = ''
-  previewUrl!: string | ArrayBuffer | null;
+  previewUrl!: string | ArrayBuffer | null
   educationArray!: FormArray
   workArray!: FormArray
   ccaArray!: FormArray
+
+  @ViewChild('inputFile')
+  inputFile!: ElementRef;
 
   isEduOllama = false
   eduIndex!: number
@@ -34,18 +43,27 @@ export class ResumebuilderComponent implements OnInit, OnDestroy {
   onCcaOllamaClick!: string
 
   saveNewResume$!: Observable<Object>
+  updateResumeById$!: Observable<boolean>
 
   constructor(private fb: FormBuilder, private router: Router, private resumeStore: ResumeStore,
-    private activatedRoute: ActivatedRoute, private resumeSvc: ResumeService) {
+    private activatedRoute: ActivatedRoute, private resumeSvc: ResumeService, private imageStore: ImageStore) {
   }
 
   ngOnInit(): void {
+
+    this.imageStore.saveImgUrl('') //Reset imageStore
+
+    this.userId = this.activatedRoute.snapshot.params['id']
+
+    const currTime = new Date().getTime().toString()
+    this.defaultTitle = `Untitled-${currTime}`
 
     this.educationArray = this.fb.array([])
     this.workArray = this.fb.array([])
     this.ccaArray = this.fb.array([])
 
     this.resumeForm = this.fb.group({
+      title: this.fb.control(this.defaultTitle),
       fullname: this.fb.control('', [Validators.required]),
       phone: this.fb.control('', [Validators.required]),
       email: this.fb.control('', [Validators.required, Validators.email]),
@@ -56,6 +74,37 @@ export class ResumebuilderComponent implements OnInit, OnDestroy {
       cca: this.ccaArray,
       additional: this.fb.control('')
     })
+
+
+    this.id = this.activatedRoute.snapshot.queryParams['q']
+
+    if (this.id) {
+      //IF HAVE QUERY PARAM
+
+      this.getResumeById$ = this.resumeSvc.getResumeById(this.id, this.userId)
+      this.getResumeById$.subscribe({
+
+        next: r => {
+
+          this.resumeForm.patchValue({
+            title: r.title,
+            fullname: r.fullName,
+            phone: r.phone,
+            email: r.email,
+            // mypic: this.fb.control(''),
+            // fileSource: this.fb.control('')
+            additional: r.additional
+          })
+          
+          r.education.forEach((edu: any) => this.educationArray.push(this.fb.group(edu)))
+          r.work.forEach((work: any) => this.workArray.push(this.fb.group(work)))
+          r.cca.forEach((cca: any) => this.ccaArray.push(this.fb.group(cca)))
+
+          this.imageStore.saveImgUrl(r.url)
+        },
+        error: error => console.error('Error getting resume:', error)
+      })
+    }
 
     this.resumeForm.valueChanges.subscribe(data => this.resumeStore.saveResume(data));
   }
@@ -147,25 +196,21 @@ export class ResumebuilderComponent implements OnInit, OnDestroy {
   onFileSelect(event: any) {
     if(event.target.files.length > 0) {
       const file = event.target.files[0]
-      
-      /* To get file name */
-      this.fileName = file.name
-
-      /* For file preview */
-      const reader = new FileReader();
-      reader.onload = () => {
-        console.log(">>>> READER:", reader)
-        this.previewUrl = reader.result;
-      }
-      reader.readAsDataURL(file);
 
       this.resumeForm.patchValue({
         fileSource: file
       })
     }
-
   }
 
+  onFileDelete() {
+    this.resumeForm.patchValue({
+      fileSource: ''
+    })
+    this.inputFile.nativeElement.value = ''
+  }
+
+  /* OLLAMA */
   improveEducation(idx: number) {
     if (this.educationArray.at(idx).get('ePoints')?.value) { //Only call Ollama if got value
       this.isEduOllama = true
@@ -193,6 +238,7 @@ export class ResumebuilderComponent implements OnInit, OnDestroy {
   onSubmit() {
 
     const formData = new FormData();
+    formData.append('title', this.resumeForm.get('title')?.value);
     formData.append('fullName', this.resumeForm.get('fullname')?.value);
     formData.append('phone', this.resumeForm.get('phone')?.value);
     formData.append('email', this.resumeForm.get('email')?.value);
@@ -202,13 +248,12 @@ export class ResumebuilderComponent implements OnInit, OnDestroy {
     formData.append('additional', this.resumeForm.get('additional')?.value);
 
     const fileSourceValue = this.resumeForm.get('fileSource')?.value;
-    console.log(fileSourceValue)
     if (fileSourceValue != null && fileSourceValue.size > 0 && fileSourceValue != undefined) {
       formData.append('mypic', fileSourceValue);
     }
 
+    console.log(this.resumeForm.get('title')?.value)
     console.log(this.resumeForm.get('fullname')?.value) //Isis Lee Ming Wei
-    
     console.log(this.resumeForm.get('phone')?.value) //97260788
     console.log(this.resumeForm.get('email')?.value); //isislee107@gmail.com
     console.log(JSON.stringify(this.resumeForm.get('education')?.value)); //[{"eName":"NUS","eCountry":"Singapore","eCert":"BAC","eFrom":"2024-06-12","eCurrent":false,"eTo":"2024-06-20","ePoints":"I love NUS\nSpecialise in BA"}]
@@ -216,26 +261,36 @@ export class ResumebuilderComponent implements OnInit, OnDestroy {
     console.log(JSON.stringify(this.resumeForm.get('cca')?.value)); //[{"cName":"NIL","cCountry":"Singapore","cTitle":"NIL","cFrom":"2024-06-13","cCurrent":false,"cTo":"","cPoints":"NIL"}]
     console.log(this.resumeForm.get('additional')?.value); //Saxophone\r\nHarp
 
-    this.userId = this.activatedRoute.snapshot.params['id']
+    if (!this.id) {
+      //NO QUERY PARAM = SAVE
+      this.saveNewResume$ = this.resumeSvc.saveNewResume(this.userId, formData)
+      this.saveNewResume$.subscribe({
+        next: data => {
 
-    console.log(">>>>> USERID:", this.userId)
+          /* RECEIVED AS STRING */
+          // console.log(">>>> SAVED EMPLOYEE - image URL:", data)
 
-    this.saveNewResume$ = this.resumeSvc.saveNewResume(formData, this.userId)
-    this.saveNewResume$.subscribe({
-      next: data => {
+          /* RECEIVED AS OBJECT */
+          const result = data
+          console.log(">>>> SAVED RESUME:", data)
+          alert('File uploaded successfully!!!');
+        },
+        error: error => console.error('Error saving employee:', error)
+      })
+    } else {
+      //HAVE QUERY PARAM = UPDATE
+      this.updateResumeById$ = this.resumeSvc.updateResumeById(this.id, this.userId, formData)
+      this.updateResumeById$.subscribe({
+        next: data => {
+          const result = data
+          console.log(">>>> UPDATED RESUME:", data)
+          alert('File updated successfully!!!');
+        },
+        error: error => console.error('Error updating employee:', error)
+      })
+    }
 
-        /* RECEIVED AS STRING */
-        // console.log(">>>> SAVED EMPLOYEE - image URL:", data)
-
-        /* RECEIVED AS OBJECT */
-        const result = data
-        console.log(">>>> SAVED RESUME:", data)
-        alert('File uploaded successfully!!!');
-      },
-      error: error => console.error('Error saving employee:', error)
-    })
-
-    this.router.navigate(['/']) //TO CHANGE TO NEXT PAGE (STEP 3)
+    this.router.navigate(['/consult', this.userId])
   }
 
 

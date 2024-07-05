@@ -1,6 +1,10 @@
 <div>
     <form method="POST" [formGroup]="resumeForm" (ngSubmit)="onSubmit()">
 
+        <h4>
+            Resume Title: <input type="text" [value]="defaultTitle" formControlName="title">
+        </h4>
+        <br>
         <div>
             Full Name: <input type="text" formControlName="fullname">
             <!-- VALIDATIONS -->
@@ -29,16 +33,12 @@
         </div>
 
         <div>
-            Profile Picture: <input type="file" class="form-control" formControlName="mypic"
-                (change)="onFileSelect($event)">
-            <!-- DISPLAY FILE NAME -->
-            <div>{{fileName}}</div>
+            Profile Picture:
+            <input type="file" class="form-control" formControlName="mypic" (change)="onFileSelect($event)" #inputFile>
+            <!-- <input type="file" class="form-control" formControlName="mypic" accept="image/jpeg" -->
+            <button type="button" (click)="onFileDelete()">Remove Image</button>
             <br>
-            <!-- DISPLAY IMAGE PREVIEW -->
-            <div *ngIf="previewUrl">
-                <h6>Image Preview:</h6>
-                <img [src]="previewUrl" height="100">
-            </div>
+            <br>
         </div>
 
         <div>

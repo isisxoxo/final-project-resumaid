@@ -57,4 +57,19 @@ public class UserRepo implements Queries {
         return Optional.of(user);
     }
 
+    // Get user by id
+    public Optional<User> getUserById(String id) {
+
+        SqlRowSet rs = template.queryForRowSet(GET_USER_BY_ID, id);
+        if (!rs.next()) {
+            return Optional.empty();
+        }
+        User user = new User();
+        user.setId(id);
+        user.setUsername(rs.getString("username"));
+        user.setEmail(rs.getString("email"));
+        user.setPassword(rs.getString("password"));
+        return Optional.of(user);
+    }
+
 }

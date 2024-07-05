@@ -12,6 +12,16 @@ create table users (
     primary key(id)
 )
 
+create table bookings (
+    id char(128) not null,
+    userid varchar(8) not null,
+    starttime datetime not null,
+    endtime datetime not null,
+    primary key(id),
+    constraint fk_user_id foreign key(userid)
+        references users(id)
+)
+
 grant all privileges on resumaid.* to 'fred'@'localhost';
 
 flush privileges;

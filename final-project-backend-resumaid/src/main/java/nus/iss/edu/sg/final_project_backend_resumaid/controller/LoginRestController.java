@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.json.Json;
-import nus.iss.edu.sg.final_project_backend_resumaid.exceptions.EmailExistsException;
+import nus.iss.edu.sg.final_project_backend_resumaid.exceptions.UserExistsException;
 import nus.iss.edu.sg.final_project_backend_resumaid.model.User;
 import nus.iss.edu.sg.final_project_backend_resumaid.service.EmailService;
 import nus.iss.edu.sg.final_project_backend_resumaid.service.UserService;
@@ -41,7 +41,7 @@ public class LoginRestController {
             return ResponseEntity.status(201)
                     .header(HttpHeaders.AUTHORIZATION, "Bearer " + result.get("jwt")) // Set JWT in response header
                     .body(Json.createObjectBuilder().add("id", result.get("id")).build().toString());
-        } catch (EmailExistsException e) {
+        } catch (UserExistsException e) {
             return ResponseEntity.status(400).body(
                     Json.createObjectBuilder().add("message", e.getMessage()).build().toString());
         }

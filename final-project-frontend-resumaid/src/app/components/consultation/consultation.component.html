@@ -1,0 +1,32 @@
+<!-- Date range: https://material.angular.io/components/datepicker/overview -->
+<div>
+    <form method="get" [formGroup]="dateForm" (ngSubmit)="onSubmit()">
+        <div>
+            Start Date: <input type="date" formControlName="startDate">
+            <div *ngIf="dateForm.get('startDate')?.hasError('required')">
+                Start date is required.
+            </div>
+        </div>
+        <div>
+            End Date: <input type="date" formControlName="endDate">
+            <div *ngIf="dateForm.get('endDate')?.hasError('required')">
+                End date is required.
+            </div>
+        </div>
+        <button type="submit">Search</button>
+    </form>
+</div>
+<div *ngIf="availableBookings$ | async as availableBookings">
+    <h4>Available Time Slots:</h4>
+    <div *ngFor="let b of availableBookings; let i index">
+        <li>
+            <a [routerLink]="['/payment', id]">{{b.start.dateTime.value | date:'dd MMM yy: hh:mmaa'}} -
+                {{b.end.dateTime.value | date:'shortTime'}}</a>
+        </li>
+    </div>
+</div>
+<!-- Google Calendar Appointment Scheduling begin -->
+<!-- <iframe
+    src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ3Ea3SfV2vjGI06iUEbrolTYhCezn8-e3DAnWHpCxqC-hZEoqQarqlW3O8Y6eWA7o2qtUannZCS?gv=true"
+    style="border: 0" width="100%" height="600" frameborder="0"></iframe> -->
+<!-- end Google Calendar Appointment Scheduling -->

@@ -12,7 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import jakarta.servlet.http.HttpServletRequest;
-import nus.iss.edu.sg.final_project_backend_resumaid.exceptions.EmailExistsException;
+import nus.iss.edu.sg.final_project_backend_resumaid.exceptions.UserExistsException;
 import nus.iss.edu.sg.final_project_backend_resumaid.model.User;
 import nus.iss.edu.sg.final_project_backend_resumaid.repository.UserRepo;
 import nus.iss.edu.sg.final_project_backend_resumaid.utils.JwtUtil;
@@ -30,11 +30,11 @@ public class UserService {
     private JwtUtil jwtUtil;
 
     // C
-    public Map<String, String> registerNewUserAccount(User user) throws EmailExistsException {
+    public Map<String, String> registerNewUserAccount(User user) throws UserExistsException {
 
         if (userRepo.emailExist(user.getEmail())) {
             // Email already exists
-            throw new EmailExistsException(
+            throw new UserExistsException(
                     "There is already an existing account with this email address: " + user.getEmail());
         }
         // Email does not exist yet, to create new user

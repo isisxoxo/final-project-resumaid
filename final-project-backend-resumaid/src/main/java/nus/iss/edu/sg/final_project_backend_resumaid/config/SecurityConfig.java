@@ -40,8 +40,10 @@ public class SecurityConfig {
 
         return http.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth.requestMatchers("/api/register", "/api/login").permitAll()) // Public
-                .authorizeHttpRequests(auth -> auth.requestMatchers("/api/create/**", "/api/ollama/**").authenticated())
-                // Only upon login
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/api/create/**", "/api/ollama/**", "/api/view/**", "/api/delete/**",
+                                "/api/cal/**")
+                        .authenticated())// Only upon login
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();

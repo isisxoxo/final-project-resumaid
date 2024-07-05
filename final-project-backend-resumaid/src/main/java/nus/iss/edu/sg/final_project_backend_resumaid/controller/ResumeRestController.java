@@ -22,15 +22,20 @@ import jakarta.json.JsonObject;
 import jakarta.servlet.http.HttpServletRequest;
 import nus.iss.edu.sg.final_project_backend_resumaid.model.Cca;
 import nus.iss.edu.sg.final_project_backend_resumaid.model.Education;
+import nus.iss.edu.sg.final_project_backend_resumaid.model.Resume;
 import nus.iss.edu.sg.final_project_backend_resumaid.model.Work;
 import nus.iss.edu.sg.final_project_backend_resumaid.service.ResumeService;
 import nus.iss.edu.sg.final_project_backend_resumaid.service.UserService;
 
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PutMapping;
 
 @RestController
-@RequestMapping(path = "/api/create")
+@RequestMapping(path = "/api")
 public class ResumeRestController {
 
     @Autowired
@@ -39,8 +44,10 @@ public class ResumeRestController {
     @Autowired
     private UserService userService;
 
-    @PostMapping(path = "/{userId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    // C
+    @PostMapping(path = "/create/{userId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<String> postNewResume(@PathVariable String userId,
+            @RequestPart String title,
             @RequestPart String fullName,
             @RequestPart String phone,
             @RequestPart String email,
@@ -51,6 +58,7 @@ public class ResumeRestController {
             @RequestPart(required = false) MultipartFile mypic,
             HttpServletRequest request) throws JsonMappingException, JsonProcessingException {
 
+        System.out.println("title " + title);
         System.out.println("fullName " + fullName);
         System.out.println("phone " + phone);
         System.out.println("email " + email);
@@ -81,8 +89,8 @@ public class ResumeRestController {
         JsonObject payload;
 
         try {
-            String id = resumeService.saveNewResume(userId, fullName, phone, email, education, work, cca, additional,
-                    mypic);
+            String id = resumeService.saveNewResume(title, userId, fullName, phone, email, education, work, cca,
+                    additional, mypic);
             payload = Json.createObjectBuilder().add("id", id).build();
             return ResponseEntity.status(201).header(HttpHeaders.AUTHORIZATION, "Bearer " + jwt)
                     .body(payload.toString());
@@ -90,6 +98,100 @@ public class ResumeRestController {
             payload = Json.createObjectBuilder().add("message", e.getMessage()).build();
             return ResponseEntity.status(404).header(HttpHeaders.AUTHORIZATION, "Bearer " + jwt)
                     .body(payload.toString()); // 404
+        }
+    }
+
+    // R
+    @GetMapping("/view/{userId}/all")
+    public ResponseEntity<List<Resume>> getAllResume(@PathVariable String userId, HttpServletRequest request) {
+
+        String jwt = userService.getJwtFromHeader(request);
+
+        try {
+            List<Resume> resumeAll = resumeService.getAllResumeUser(userId);
+            return ResponseEntity.ok().header(HttpHeaders.AUTHORIZATION, "Bearer " + jwt).body(resumeAll);
+        } catch (Exception e) {
+            return ResponseEntity.status(404).header(HttpHeaders.AUTHORIZATION, "Bearer " + jwt).body(null);
+        }
+    }
+
+    @GetMapping("/view/{userId}")
+    public ResponseEntity<Resume> getResumeById(@PathVariable String userId, @RequestParam String id,
+            HttpServletRequest request) {
+
+        String jwt = userService.getJwtFromHeader(request);
+
+        try {
+            Resume resumeResult = resumeService.getResumeUserById(id, userId);
+            return ResponseEntity.ok().header(HttpHeaders.AUTHORIZATION, "Bearer " + jwt).body(resumeResult);
+        } catch (Exception e) {
+            return ResponseEntity.status(404).header(HttpHeaders.AUTHORIZATION, "Bearer " + jwt).body(null);
+        }
+    }
+
+    // U
+    @PutMapping("/create/{userId}")
+    public ResponseEntity<Boolean> putResumeById(@PathVariable String userId,
+            @RequestParam String id,
+            @RequestPart String title,
+            @RequestPart String fullName,
+            @RequestPart String phone,
+            @RequestPart String email,
+            @RequestPart String educationJson,
+            @RequestPart String workJson,
+            @RequestPart String ccaJson,
+            @RequestPart(required = false) String additional,
+            @RequestPart(required = false) MultipartFile mypic,
+            HttpServletRequest request) throws JsonMappingException,
+            JsonProcessingException {
+
+        System.out.println("title " + title);
+        System.out.println("fullName " + fullName);
+        System.out.println("phone " + phone);
+        System.out.println("email " + email);
+        System.out.println("mypic " + mypic);
+        System.out.println("educationJson " + educationJson);
+        System.out.println("workJson " + workJson);
+        System.out.println("ccaJson " + ccaJson);
+        System.out.println("additional " + additional);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        Education[] educationArray = objectMapper.readValue(educationJson,
+                Education[].class);
+        List<Education> education = Arrays.asList(educationArray);
+
+        Work[] workArray = objectMapper.readValue(workJson, Work[].class);
+        List<Work> work = Arrays.asList(workArray);
+
+        Cca[] ccaArray = objectMapper.readValue(ccaJson, Cca[].class);
+        List<Cca> cca = Arrays.asList(ccaArray);
+
+        String jwt = userService.getJwtFromHeader(request);
+
+        try {
+            Boolean updateResult = resumeService.updateResumeUserById(id, title, userId,
+                    fullName, phone, email, education, work, cca, additional, mypic);
+            return ResponseEntity.status(201).header(HttpHeaders.AUTHORIZATION, "Bearer " + jwt).body(updateResult);
+        } catch (IOException e) {
+            return ResponseEntity.status(404).header(HttpHeaders.AUTHORIZATION, "Bearer " + jwt).body(false); // 404
+        }
+    }
+
+    // D
+    @DeleteMapping("/delete/{userId}")
+    public ResponseEntity<Boolean> deleteResumeById(@PathVariable String userId,
+            @RequestParam String id,
+            HttpServletRequest request) {
+
+        String jwt = userService.getJwtFromHeader(request);
+
+        try {
+            Boolean deleteResult = resumeService.deleteResumeById(id, userId);
+            System.out.println("DELETE RESULT: " + deleteResult);
+            return ResponseEntity.ok().header(HttpHeaders.AUTHORIZATION, "Bearer " + jwt).body(deleteResult);
+        } catch (Exception e) {
+            return ResponseEntity.status(404).header(HttpHeaders.AUTHORIZATION, "Bearer " + jwt).body(false);
         }
     }
 

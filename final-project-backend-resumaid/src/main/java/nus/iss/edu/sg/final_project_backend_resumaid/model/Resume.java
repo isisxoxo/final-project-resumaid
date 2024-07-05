@@ -1,7 +1,9 @@
 package nus.iss.edu.sg.final_project_backend_resumaid.model;
 
+import java.util.Date;
 import java.util.List;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.AllArgsConstructor;
@@ -14,8 +16,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Resume {
 
+    @Id
     private String id;
+
     private String userId;
+    private String title;
     private String fullName;
     private String phone;
     private String email;
@@ -24,5 +29,7 @@ public class Resume {
     private List<Cca> cca;
     private String additional;
     private String url;
+    private Date creationTime;
+    private Date lastUpdateTime;
 
 }
