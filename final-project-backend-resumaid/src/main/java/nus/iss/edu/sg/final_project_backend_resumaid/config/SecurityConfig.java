@@ -42,7 +42,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth.requestMatchers("/api/register", "/api/login").permitAll()) // Public
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/create/**", "/api/ollama/**", "/api/view/**", "/api/delete/**",
-                                "/api/cal/**")
+                                "/api/cal/**", "/api/payment/**")
                         .authenticated())// Only upon login
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)

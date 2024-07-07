@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -26,7 +26,11 @@ import { DraftsComponent } from './drafts/drafts.component';
 import { ImageStore } from './services/image.store';
 import { ConsultationComponent } from './components/consultation/consultation.component';
 import { ConsultationService } from './services/consultation.service';
+import { MaterialModule } from './material/material.module';
+import { StripeService } from './services/stripe.service';
 import { PaymentComponent } from './components/payment/payment.component';
+import { DownloadComponent } from './components/download/download.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 const appRoutes: Routes = [
   {path: '', component: RegistrationComponent},
@@ -35,6 +39,8 @@ const appRoutes: Routes = [
   {path: 'create/:id', component: CreateComponent, canActivate: [enterRestricted]},
   {path: 'view/:id', component: DraftsComponent, canActivate: [enterRestricted]},
   {path: 'consult/:id', component: ConsultationComponent, canActivate: [enterRestricted]},
+  {path: 'payment/:id', component: PaymentComponent, canActivate: [enterRestricted]},
+  {path: 'download/:id', component: DownloadComponent, canActivate: [enterRestricted]},
   {path: '**', redirectTo:'/', pathMatch: 'full'}
 ]
 
@@ -51,14 +57,22 @@ const appRoutes: Routes = [
     OllamaComponent,
     DraftsComponent,
     ConsultationComponent,
-    PaymentComponent
+    PaymentComponent,
+    DownloadComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
+    MaterialModule,
     HttpClientModule,
-    RouterModule.forRoot(appRoutes, {useHash: true})
+    RouterModule.forRoot(appRoutes, {useHash: true}),
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: !isDevMode(),
+      // Register the ServiceWorker as soon as the application is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    })
   ],
   providers: [UserService,
     JwtService, 
@@ -67,6 +81,7 @@ const appRoutes: Routes = [
     ImageStore,
     OllamaService,
     ConsultationService,
+    StripeService,
     { provide: HTTP_INTERCEPTORS, useClass: jwtInterceptor, multi: true },
     provideAnimationsAsync() // All classes have this
   ],
