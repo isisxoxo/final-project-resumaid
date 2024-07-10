@@ -34,3 +34,5 @@ build/
 
 
 src/main/**/application.properties
+src/main/**/credentials.json
+src/main/**/resumaid-googlecal-credentials.json
