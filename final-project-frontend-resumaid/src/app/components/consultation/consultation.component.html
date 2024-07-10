@@ -1,4 +1,5 @@
 <!-- Date range: https://material.angular.io/components/datepicker/overview -->
+<h3>Not satisified with your resume yet? Book a timeslot with our professional consultant now!</h3>
 <div>
     <form method="get" [formGroup]="dateForm" (ngSubmit)="onSubmit()">
         <div>
@@ -13,20 +14,21 @@
                 End date is required.
             </div>
         </div>
+        <br>
         <button type="submit">Search</button>
     </form>
+</div>
+<br>
+<div>
+    <button type="button" (click)="skip()">Skip</button>
 </div>
 <div *ngIf="availableBookings$ | async as availableBookings">
     <h4>Available Time Slots:</h4>
     <div *ngFor="let b of availableBookings; let i index">
         <li>
-            <a [routerLink]="['/payment', id]">{{b.start.dateTime.value | date:'dd MMM yy: hh:mmaa'}} -
-                {{b.end.dateTime.value | date:'shortTime'}}</a>
+            <button mat-button color="primary" (click)="clickBooking(b)">
+                {{b.start.dateTime.value | date:'dd MMM yy: hh:mmaa'}} - {{b.end.dateTime.value | date:'shortTime'}} SGT
+            </button>
         </li>
     </div>
 </div>
-<!-- Google Calendar Appointment Scheduling begin -->
-<!-- <iframe
-    src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ3Ea3SfV2vjGI06iUEbrolTYhCezn8-e3DAnWHpCxqC-hZEoqQarqlW3O8Y6eWA7o2qtUannZCS?gv=true"
-    style="border: 0" width="100%" height="600" frameborder="0"></iframe> -->
-<!-- end Google Calendar Appointment Scheduling -->

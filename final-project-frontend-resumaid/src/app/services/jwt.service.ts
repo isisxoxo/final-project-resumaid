@@ -1,18 +1,28 @@
 import { Injectable } from '@angular/core';
 import { jwtDecode } from 'jwt-decode';
+import { Observable, Subject } from 'rxjs';
 
 
 @Injectable()
 export class JwtService {
 
-  constructor() { }
+  private jwtTokenSubject = new Subject<string | null>();
+
+  constructor() {
+  }
 
   setToken(jwtToken: string) {
     localStorage.setItem('jwtToken', jwtToken)
   }
 
   getToken(): string | null {
-    return localStorage.getItem('jwtToken')
+    const token = localStorage.getItem('jwtToken')
+    this.jwtTokenSubject.next(token)
+    return token
+  }
+
+  isLoggedIn(): Observable<any> {
+    return this.jwtTokenSubject.asObservable()
   }
 
   removeToken() {

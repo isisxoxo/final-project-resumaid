@@ -1,5 +1,5 @@
 <div>
-    <form method="POST" [formGroup]="resumeForm" (ngSubmit)="onSubmit()">
+    <form method="POST" [formGroup]="resumeForm" (ngSubmit)="onSubmit($event.submitter.id)">
 
         <h4>
             Resume Title: <input type="text" [value]="defaultTitle" formControlName="title">
@@ -34,7 +34,7 @@
 
         <div>
             Profile Picture:
-            <input type="file" class="form-control" formControlName="mypic" (change)="onFileSelect($event)" #inputFile>
+            <input type="file" class="form-control" formControlName="mypic" (change)="onFileSelect($event)" accept="image/*" #inputFile>
             <!-- <input type="file" class="form-control" formControlName="mypic" accept="image/jpeg" -->
             <button type="button" (click)="onFileDelete()">Remove Image</button>
             <br>
@@ -51,9 +51,9 @@
                         Education Name: <input type="text" formControlName="eName">
                         Education Country: <input type="text" formControlName="eCountry">
                         Education Certification: <input type="text" formControlName="eCert">
-                        Education From: <input type="date" formControlName="eFrom">
+                        Education From: <input type="date" [defaultValue]="" formControlName="eFrom">
                         Current? <input type="checkbox" (change)="isEChecked($event,i)" formControlName="eCurrent">
-                        Education To: <input type="date" formControlName="eTo">
+                        Education To: <input type="date" [defaultValue]="" formControlName="eTo">
                         Education Description: <textarea formControlName="ePoints"></textarea>
                         <br>
                         <button type="button" (click)="deleteEducation(i)">Delete</button>
@@ -78,9 +78,9 @@
                         Company: <input type="text" formControlName="wName">
                         Work Country: <input type="text" formControlName="wCountry">
                         Role: <input type="text" formControlName="wRole">
-                        Work From: <input type="date" formControlName="wFrom">
+                        Work From: <input type="date" [defaultValue]="" formControlName="wFrom">
                         Current? <input type="checkbox" (change)="isWChecked($event,i)" formControlName="wCurrent">
-                        Work To: <input type="date" formControlName="wTo">
+                        Work To: <input type="date" [defaultValue]="" formControlName="wTo">
                         Work Description: <textarea formControlName="wPoints"></textarea>
                         <br>
                         <button type="button" (click)="deleteWork(i)">Delete</button>
@@ -105,9 +105,9 @@
                         Activity: <input type="text" formControlName="cName">
                         Country: <input type="text" formControlName="cCountry">
                         Title: <input type="text" formControlName="cTitle">
-                        Activity From: <input type="date" formControlName="cFrom">
+                        Activity From: <input type="date" [defaultValue]="" formControlName="cFrom">
                         Current? <input type="checkbox" (change)="isCChecked($event,i)" formControlName="cCurrent">
-                        Activity To: <input type="date" formControlName="cTo">
+                        Activity To: <input type="date" [defaultValue]="" formControlName="cTo">
                         Description: <textarea formControlName="cPoints"></textarea>
                         <br>
                         <button type="button" (click)="deleteCca(i)">Delete</button>
@@ -128,7 +128,12 @@
 
         <br>
         <div>
-            <button type="submit" [disabled]="resumeForm.invalid">Save</button>
+            <button type="submit" id="save" [disabled]="resumeForm.invalid">Save</button>
+        </div>
+        <br>
+        <!-- If have query param (existing resume) -->
+        <div *ngIf="id">
+            <button type="submit" id="new" [disabled]="resumeForm.invalid">Save As New Resume Copy</button>
         </div>
     </form>
     <br>

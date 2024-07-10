@@ -119,6 +119,8 @@ public class ResumeRestController {
     public ResponseEntity<Resume> getResumeById(@PathVariable String userId, @RequestParam String id,
             HttpServletRequest request) {
 
+        System.out.println("IN GET MAPPING");
+
         String jwt = userService.getJwtFromHeader(request);
 
         try {

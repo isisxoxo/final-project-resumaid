@@ -1,9 +1,11 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { loadStripe } from '@stripe/stripe-js';
 import { JwtService } from '../../services/jwt.service';
 import { StripeService } from '../../services/stripe.service';
 import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
+import { ConsultationService } from '../../services/consultation.service';
 
 
 @Component({
@@ -11,9 +13,12 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './payment.component.html',
   styleUrl: './payment.component.css'
 })
-export class PaymentComponent {
+export class PaymentComponent implements OnInit {
 
   userId!: string
+  resumeId!: string
+  id!: string //meeting ID
+  saveBooking$!: Observable<boolean>
 
   PUBLISHABLE_KEY = "pk_test_51PZ3XS2LmPZ6KWBAH7x7KJ8wGYTv4E268UjHxjBIfEszuxp6rUF15JR0dbksL1PxUxmfuDkNb6jbabdo0A8ABgp6000TX2Ie59"
 
@@ -21,13 +26,19 @@ export class PaymentComponent {
 
   headers = new HttpHeaders().set("Authorization", "Bearer " + this.jwtSvc.getToken())
 
-  constructor(private http: HttpClient, private stripeService: StripeService, private jwtSvc: JwtService, private activatedRoute: ActivatedRoute) { }
+  constructor(private http: HttpClient, private stripeService: StripeService, 
+            private jwtSvc: JwtService, private activatedRoute: ActivatedRoute, 
+            private consultationService: ConsultationService) { }
+
+  ngOnInit(): void {
+    this.userId = this.activatedRoute.snapshot.params["id"]
+    this.id = this.activatedRoute.snapshot.queryParams["id"]
+    this.resumeId = this.activatedRoute.snapshot.queryParams["q"] 
+  }
 
   async pay(): Promise<void> {
 
     const baseUrl = window.location.origin;
-    
-    this.userId = this.activatedRoute.snapshot.params["id"]
 
     // here we create a payment object
     const payment = {
@@ -37,7 +48,7 @@ export class PaymentComponent {
       amount: 5000,
       quantity: '1',
       cancelUrl: `${baseUrl}/#/cancel`,
-      successUrl: `${baseUrl}/#/download/${this.userId}`,
+      successUrl: `${baseUrl}/#/success/${this.userId}?mid=${this.id}&q=${this.resumeId}`,
     };
 
     const stripe = await this.stripePromise;
@@ -49,8 +60,8 @@ export class PaymentComponent {
         while (stripe == null) { }
         // I use stripe to redirect To Checkout page of Stripe platform
         stripe.redirectToCheckout({
-          sessionId: data.id,
-        });
+          sessionId: data.id
+        })
       });
   }
 }

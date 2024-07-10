@@ -3,22 +3,97 @@
     height: 297mm */
     /* width: 140mm;
     height: 198mm; */
-    aspect-ratio: 210 / 297;
-    height: 100%;
     /* transform-origin: top;
     transform: scale(210/297); */
+    aspect-ratio: 210 / 297;
+    height: 100%;
+    max-height: 100%;
+    max-width: 100%;
     border: 1px solid black;
-    padding: 1.5rem;
+    padding: 3vh;
     display: flex;
     flex-direction: column;
+    box-sizing: border-box;
+    position: relative; /* Added to position the image within this container */
 }
 
 .resume-text {
     overflow: hidden;
     flex: 1;
-    font-size: 0.7vw;
+    font-size: 1.1vh;
 }
 
-h3 { 
-    font-size: 1.5vw;
+.resume-name { 
+    font-size: 2vh;
+    text-align: center;
+    font-weight: bold;
+}
+
+.resume-phone-email {
+    text-align: center;
+}
+
+.image {
+    aspect-ratio: 35 / 45;
+    max-height: 7.5vh;
+    float: right;
+    position: absolute;
+    top: 1vh; /* Adjust to match the padding of .resume-preview */
+    right: 3.7vh; /* Adjust to match the padding of .resume-preview */
+}
+
+img {
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    float: right;
+}
+
+hr {
+    height: 0.1vh; /* Height of hr using vh units */
+    border: none; /* Remove default border */
+    border-top: 1px solid gray; /* Add custom top border */
+    margin: 0; /* Adjust margin as needed */
+    margin-block: 0; /* Adjust margin as needed */
+}
+
+.resume-section-header {
+    font-weight: bold;
+}
+
+.resume-section {
+    margin-bottom: 1vh;
+}
+
+.resume-section-name {
+    text-align: left;
+    font-weight: bold;
+}
+
+.resume-section-country {
+    float: right;
+    font-weight: normal;
+}
+
+.resume-section-title {
+    font-style: italic;
+    margin-top: 0.15vh;
+    margin-bottom: 0.15vh;
+}
+
+.resume-section-dates {
+    float: right;
+    font-style: normal;
+}
+
+ul {
+    padding-inline-start: 1vh;
+    list-style-position: outside;
+    margin-top: 0;
+    margin-bottom: 0;
+    text-align: justify;
+}
+
+li {
+    margin-left: 1vh;
 }

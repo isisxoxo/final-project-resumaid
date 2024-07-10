@@ -14,11 +14,9 @@
 </div> -->
 
 <h3>Build Your Resume:</h3>
+<button [routerLink]="['/main', userId]">Back to Main</button>
 <div class="app-container">
     <div class="app-form-content">
-        <div class="app-template">
-            <app-templateselector></app-templateselector>
-        </div>
         <div class="app-form">
             <app-resumebuilder></app-resumebuilder>
         </div>

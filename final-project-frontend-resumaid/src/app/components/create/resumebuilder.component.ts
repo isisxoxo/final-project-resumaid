@@ -52,6 +52,7 @@ export class ResumebuilderComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
 
     this.imageStore.saveImgUrl('') //Reset imageStore
+    this.resumeStore.saveResume('') //Reset imageStore
 
     this.userId = this.activatedRoute.snapshot.params['id']
 
@@ -96,9 +97,40 @@ export class ResumebuilderComponent implements OnInit, OnDestroy {
             additional: r.additional
           })
           
-          r.education.forEach((edu: any) => this.educationArray.push(this.fb.group(edu)))
-          r.work.forEach((work: any) => this.workArray.push(this.fb.group(work)))
-          r.cca.forEach((cca: any) => this.ccaArray.push(this.fb.group(cca)))
+          r.education.forEach(
+            (edu: any) => {
+              if (edu.eFrom) {
+                edu.eFrom = new Date (edu.eFrom).toISOString().split('T')[0];
+              }
+              if (!edu.eCurrent && edu.eTo) {
+                edu.eTo = new Date (edu.eTo).toISOString().split('T')[0];
+              }
+              this.educationArray.push(this.fb.group(edu));
+            }
+          )
+          r.work.forEach(
+            (work: any) => {
+              if (work.wFrom) {
+                work.wFrom = new Date (work.wFrom).toISOString().split('T')[0];
+              }
+              if (!work.wCurrent && work.wTo) {
+                work.wTo = new Date (work.wTo).toISOString().split('T')[0];
+              }
+              this.workArray.push(this.fb.group(work));
+            }
+          )
+          r.cca.forEach(
+            (cca: any) => {
+              if (cca.cFrom) {
+                cca.cFrom = new Date (cca.cFrom).toISOString().split('T')[0];
+              }
+              if (!cca.cCurrent && cca.cTo) {
+                console.log("CCA CTO:", cca.cTo)
+                cca.cTo = new Date (cca.cTo).toISOString().split('T')[0];
+              }
+              this.ccaArray.push(this.fb.group(cca));
+            }
+          )
 
           this.imageStore.saveImgUrl(r.url)
         },
@@ -106,7 +138,9 @@ export class ResumebuilderComponent implements OnInit, OnDestroy {
       })
     }
 
-    this.resumeForm.valueChanges.subscribe(data => this.resumeStore.saveResume(data));
+    this.resumeForm.valueChanges.subscribe(data => {
+      this.resumeStore.saveResume(data)
+    });
   }
 
   addNewEducation() {
@@ -235,7 +269,7 @@ export class ResumebuilderComponent implements OnInit, OnDestroy {
     }
   }
 
-  onSubmit() {
+  onSubmit(buttonid: string) {
 
     const formData = new FormData();
     formData.append('title', this.resumeForm.get('title')?.value);
@@ -261,8 +295,53 @@ export class ResumebuilderComponent implements OnInit, OnDestroy {
     console.log(JSON.stringify(this.resumeForm.get('cca')?.value)); //[{"cName":"NIL","cCountry":"Singapore","cTitle":"NIL","cFrom":"2024-06-13","cCurrent":false,"cTo":"","cPoints":"NIL"}]
     console.log(this.resumeForm.get('additional')?.value); //Saxophone\r\nHarp
 
-    if (!this.id) {
-      //NO QUERY PARAM = SAVE
+
+    /* DIFFERENT SAVE BUTTONS */
+
+    //SAVE AS EXISTING COPY
+    if(buttonid == "save") {
+
+      if (!this.id) {
+        //NO QUERY PARAM = SAVE
+        this.saveNewResume$ = this.resumeSvc.saveNewResume(this.userId, formData)
+        this.saveNewResume$.subscribe({
+          next: data => {
+  
+            /* RECEIVED AS STRING */
+            // console.log(">>>> SAVED EMPLOYEE - image URL:", data)
+  
+            /* RECEIVED AS OBJECT */
+            const result = data as {id: string}
+            this.id = result.id
+            console.log(">>>> SAVED RESUME:", this.id)
+            alert('File uploaded successfully!!!');
+  
+            const queryParams = {q: this.id}
+            console.log(this.id)
+            this.router.navigate(['/consult', this.userId], {queryParams})
+          },
+          error: error => console.error('Error saving employee:', error)
+        })
+      } else {
+        //HAVE QUERY PARAM = UPDATE
+        this.updateResumeById$ = this.resumeSvc.updateResumeById(this.id, this.userId, formData)
+        this.updateResumeById$.subscribe({
+          next: data => {
+            const result = data
+            console.log(">>>> UPDATED RESUME:", data)
+            alert('File updated successfully!!!');
+  
+            const queryParams = {q: this.id}
+            console.log(this.id)
+            this.router.navigate(['/consult', this.userId], {queryParams})
+          },
+          error: error => console.error('Error updating employee:', error)
+        })
+      }
+    }
+
+    //SAVE AS A NEW COPY
+    if (buttonid == "new") {
       this.saveNewResume$ = this.resumeSvc.saveNewResume(this.userId, formData)
       this.saveNewResume$.subscribe({
         next: data => {
@@ -271,26 +350,19 @@ export class ResumebuilderComponent implements OnInit, OnDestroy {
           // console.log(">>>> SAVED EMPLOYEE - image URL:", data)
 
           /* RECEIVED AS OBJECT */
-          const result = data
-          console.log(">>>> SAVED RESUME:", data)
+          const result = data as {id: string}
+          this.id = result.id
+          console.log(">>>> SAVED RESUME:", this.id)
           alert('File uploaded successfully!!!');
+
+          const queryParams = {q: this.id}
+          console.log(this.id)
+          this.router.navigate(['/consult', this.userId], {queryParams})
         },
         error: error => console.error('Error saving employee:', error)
       })
-    } else {
-      //HAVE QUERY PARAM = UPDATE
-      this.updateResumeById$ = this.resumeSvc.updateResumeById(this.id, this.userId, formData)
-      this.updateResumeById$.subscribe({
-        next: data => {
-          const result = data
-          console.log(">>>> UPDATED RESUME:", data)
-          alert('File updated successfully!!!');
-        },
-        error: error => console.error('Error updating employee:', error)
-      })
     }
 
-    this.router.navigate(['/consult', this.userId])
   }
 
 

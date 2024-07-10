@@ -1,0 +1,36 @@
+<!-- Pre-Login -->
+<mat-toolbar color="primary" style="padding-left: 8vw; padding-right: 8vw;" *ngIf="!loggedIn; else elseBlock">
+    <a href="/" class="resumaid-section">
+        <img src="/assets/Resumaid symbol 2.png" class="logo">
+        <h1 class="resumaid">resumAId+</h1>
+    </a>
+
+    <span class="example-spacer"></span>
+    <div>
+        <button mat-button [routerLink]="['/login']">Login</button>
+        <button mat-raised-button [routerLink]="['/registration']">Sign Up</button>
+    </div>
+</mat-toolbar>
+
+
+<!-- Post-Login -->
+<ng-template #elseBlock>
+
+    <mat-toolbar color="primary" style="padding-left: 8vw; padding-right: 8vw;">
+        <a (click)="clickMain()" class="resumaid-section">
+            <img src="/assets/Resumaid symbol 2.png" class="logo">
+            <h1 class="resumaid">resumAId+</h1>
+        </a>
+
+        <div class="menu-bar">
+            <button mat-button (click)="clickCreate()">Create New Resume</button>
+            <span style="color: rgba(0, 0, 0, 0.6);">&bull;</span>
+            <button mat-button (click)="clickView()">View All Resumes</button>
+            <span style="color: rgba(0, 0, 0, 0.6);">&bull;</span>
+            <button mat-button (click)="clickBookings()">Upcoming Bookings</button>
+        </div>
+        <span class="example-spacer"></span>
+        <button mat-flat-button (click)="clickLogout()">Logout</button>
+
+    </mat-toolbar>
+</ng-template>

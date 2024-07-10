@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ConsultationService } from '../../services/consultation.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Booking } from '../../models/booking';
-import { ActivatedRoute, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-consultation',
@@ -14,9 +14,11 @@ export class ConsultationComponent implements OnInit {
 
   availableBookings$!: Observable<any>
   dateForm!: FormGroup
+  userId!: string
   id!: string
 
-  constructor(private fb: FormBuilder, private consultationSvc: ConsultationService, private activatedRoute: ActivatedRoute) {
+  constructor(private fb: FormBuilder, private consultationSvc: ConsultationService, 
+            private router: Router, private activatedRoute: ActivatedRoute) {
   }
 
   ngOnInit(): void {
@@ -25,7 +27,8 @@ export class ConsultationComponent implements OnInit {
       endDate: this.fb.control('', [Validators.required])
     })
 
-    this.id = this.activatedRoute.snapshot.params["id"]
+    this.userId = this.activatedRoute.snapshot.params["id"]
+    this.id = this.activatedRoute.snapshot.queryParams["q"]
   }
 
   onSubmit() {
@@ -47,5 +50,19 @@ export class ConsultationComponent implements OnInit {
         console.log(">>>>> DATA:", data)
       }
       )
+  }
+
+  clickBooking(b: Booking) {
+
+    const queryParams = {id: b.id, q: this.id}
+    console.log("RESUME ID:", this.id)
+    console.log("MEETING ID:", b.id)
+    this.router.navigate(['/payment', this.userId], {queryParams})
+  }
+
+  skip() {
+    const queryParams = {q: this.id}
+    console.log(this.id)
+    this.router.navigate(['/download', this.userId], {queryParams})
   }
 }

@@ -39,6 +39,7 @@ public class SecurityConfig {
         System.out.println("IN SECURITY CONFIG");
 
         return http.csrf(csrf -> csrf.disable())
+                .authorizeHttpRequests(auth -> auth.requestMatchers("/**").permitAll()) // Public
                 .authorizeHttpRequests(auth -> auth.requestMatchers("/api/register", "/api/login").permitAll()) // Public
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/create/**", "/api/ollama/**", "/api/view/**", "/api/delete/**",

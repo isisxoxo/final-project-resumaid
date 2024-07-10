@@ -1,8 +1,7 @@
-<p>drafts works!</p>
 <div *ngFor="let r of result; let i = index">
     <li>
         <a [routerLink]="['/create', userId]" [queryParams]="{ q: r.id }">{{r.title}}</a>
         <button (click)="deleteResumeById(r.id, r.title)">Delete</button>
     </li>
 </div>
-<button [routerLink]="['/main', userId]">Back</button>
+<button [routerLink]="['/main', userId]">Back to Main</button>

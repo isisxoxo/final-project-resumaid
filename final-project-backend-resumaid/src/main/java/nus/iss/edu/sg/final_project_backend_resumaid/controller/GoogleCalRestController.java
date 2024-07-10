@@ -8,10 +8,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.google.api.client.util.DateTime;
 import com.google.api.services.calendar.model.Event;
 
 import jakarta.servlet.http.HttpServletRequest;
+import nus.iss.edu.sg.final_project_backend_resumaid.model.Booking;
+import nus.iss.edu.sg.final_project_backend_resumaid.model.Resume;
 import nus.iss.edu.sg.final_project_backend_resumaid.service.GoogleCalService;
 import nus.iss.edu.sg.final_project_backend_resumaid.service.UserService;
 
@@ -30,7 +31,6 @@ public class GoogleCalRestController {
 
     @Autowired
     private UserService userService;
-    
 
     // GET AVAILABLE TIME SLOTS
     @GetMapping("/available")
@@ -50,11 +50,20 @@ public class GoogleCalRestController {
     }
 
     // BOOK TIME SLOT (EDIT EVENT)
-    @PostMapping("/book")
-    public String postBooking(@RequestBody String entity) {
-        // TODO: process POST request
+    @PostMapping("/book/{userId}")
+    public ResponseEntity<Boolean> postBooking(@PathVariable String userId, @RequestBody String id,
+            HttpServletRequest request) {
 
-        return entity;
+        System.out.println("USERID: " + userId);
+        System.out.println("MEETING ID: " + id);
+
+        String jwt = userService.getJwtFromHeader(request);
+        try {
+            Boolean updateResult = googleCalService.setBooking(id, userId);
+            return ResponseEntity.status(201).header(HttpHeaders.AUTHORIZATION, "Bearer " + jwt).body(updateResult);
+        } catch (Exception e) {
+            return ResponseEntity.status(404).header(HttpHeaders.AUTHORIZATION, "Bearer " + jwt).body(false); // 404
+        }
     }
 
     // if (items.isEmpty()) {
@@ -75,9 +84,18 @@ public class GoogleCalRestController {
     // }
 
     // GET USER BOOKINGS
-    @GetMapping("/{userid}")
-    public String getBookingsByUser(@PathVariable String userid) {
-        // DateTime now = new DateTime(System.currentTimeMillis());
-        return new String();
+    @GetMapping("/all/{userid}")
+    public ResponseEntity<List<Booking>> getBookingsByUser(@PathVariable String userid, HttpServletRequest request) {
+
+        System.out.println("IN ALL USER BOOKINGS RC");
+
+        String jwt = userService.getJwtFromHeader(request);
+        try {
+            List<Booking> userBookings = googleCalService.getBookingsByUserid(userid);
+            System.out.println("TIME: " + userBookings.get(0).getStarttime());
+            return ResponseEntity.ok().header(HttpHeaders.AUTHORIZATION, "Bearer " + jwt).body(userBookings);
+        } catch (Exception e) {
+            return ResponseEntity.status(404).header(HttpHeaders.AUTHORIZATION, "Bearer " + jwt).body(null);
+        }
     }
 }

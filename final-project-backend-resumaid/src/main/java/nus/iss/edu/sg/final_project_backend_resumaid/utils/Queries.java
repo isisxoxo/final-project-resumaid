@@ -29,6 +29,8 @@ public interface Queries {
 
         // R (google calendar)
         public static final String GET_BOOKINGS_BY_USERID = """
-                        select * from bookings where id = ""
+                        select * from bookings
+                        where userid = ? and starttime > now()
+                        order by starttime;
                         """;
 }

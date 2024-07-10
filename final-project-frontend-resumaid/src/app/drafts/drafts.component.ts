@@ -41,7 +41,7 @@ export class DraftsComponent implements OnInit {
       this.deleteResume$.subscribe({
         next: data => {
           alert("Resume deleted for " + title)
-          location.reload() //Refresh pag
+          location.reload() //Refresh page
         },
         error: error => console.error('Error deleting resume:', error)
       })

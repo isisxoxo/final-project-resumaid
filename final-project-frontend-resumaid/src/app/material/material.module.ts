@@ -10,12 +10,14 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import {MatGridListModule} from '@angular/material/grid-list';
 
 const matModules: any[] = [
-  MatMenuModule, MatButtonModule, MatIconModule,
+  MatMenuModule, MatIconModule,
   MatFormFieldModule, MatInputModule, MatCardModule,
   MatDialogModule, MatTabsModule, MatProgressSpinnerModule,
-  MatTooltipModule, MatToolbarModule
+  MatTooltipModule, MatToolbarModule, MatButtonModule,
+  MatGridListModule
 ]
 
 @NgModule({

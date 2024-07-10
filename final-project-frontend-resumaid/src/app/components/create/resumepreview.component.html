@@ -1,19 +1,129 @@
 <div class="resume-preview">
     <div class="resume-text">
         <div *ngIf="savedResume$ | async as r">
-            <h3>{{r.fullname | titlecase}}</h3>
-            <hr>
-            <div *ngIf="previewUrl; else elseBlock">
-                <img [src]="previewUrl" height="100">
-            </div>
-            <ng-template #elseBlock>
-                <div *ngIf="savedImgUrl$ | async as url">
-                    <img [src]="url" height="100">
+            <div>
+                <div>
+                    <!-- FOR RESUME PREVIEW -->
+                    <div class="resume-name">{{ r.fullname | titlecase }}</div>
+                    <!-- FOR DOWNLOAD -->
+                    <div class="resume-name">{{ r.fullName | titlecase }}</div>
+                    <div class="resume-phone-email">
+                        {{ r.phone }} | {{ r.email }}
+                    </div>
                 </div>
-            </ng-template>
-            <div *ngFor="let e of r.education">
-                {{e.eName}}
-                <li *ngIf="e.ePoints" [innerHTML]="e.ePoints.replaceAll('\n', '\<li>')">
+                <span class="image" *ngIf="previewUrl; else elseBlock">
+                    <img [src]="previewUrl">
+                </span>
+                <ng-template #elseBlock>
+                    <div *ngIf="savedImgUrl$ | async as url" class="image">
+                        <img [src]="url">
+                    </div>
+                </ng-template>
+            </div>
+            <br>
+
+
+            <div *ngIf="r.education.length > 0">
+                <div class="resume-section-header">EDUCATION</div>
+                <hr>
+                <div *ngFor="let e of r.education" class="resume-section">
+                    <span class="resume-section-name">
+                        {{e.eName | uppercase}}
+                        <span class="resume-section-country">
+                            {{e.eCountry}}
+                        </span>
+                    </span>
+                    <div class="resume-section-title">
+                        {{e.eCert}}
+                        <span class="resume-section-dates">
+                            {{e.eFrom | date:'MMM yyyy'}}
+                            <span *ngIf="e.eCurrent; else elseBlock">
+                                - Current
+                            </span>
+                            <ng-template #elseBlock>
+                                <span *ngIf="e.eTo">
+                                    - {{e.eTo | date:'MMM yyyy'}}
+                                </span>
+                            </ng-template>
+                        </span>
+                    </div>
+                    <ul *ngIf="e.ePoints">
+                        <li [innerHTML]="e.ePoints.replaceAll('\n', '\<li>')">
+                    </ul>
+                </div>
+            </div>
+
+
+            <div *ngIf="r.work.length > 0">
+                <div class="resume-section-header">PROFESSIONAL EXPERIENCE</div>
+                <hr>
+                <div *ngFor="let w of r.work" class="resume-section">
+                    <span class="resume-section-name">
+                        {{w.wName | uppercase}}
+                        <span class="resume-section-country">
+                            {{w.wCountry}}
+                        </span>
+                    </span>
+                    <div class="resume-section-title">
+                        {{w.wRole}}
+                        <span class="resume-section-dates">
+                            {{w.wFrom | date:'MMM yyyy'}}
+                            <span *ngIf="w.wCurrent; else elseBlock">
+                                - Current
+                            </span>
+                            <ng-template #elseBlock>
+                                <span *ngIf="w.wTo">
+                                    - {{w.wTo | date:'MMM yyyy'}}
+                                </span>
+                            </ng-template>
+                        </span>
+                    </div>
+                    <ul *ngIf="w.wPoints">
+                        <li [innerHTML]="w.wPoints.replaceAll('\n', '\<li>')">
+                    </ul>
+                </div>
+            </div>
+
+
+            <div *ngIf="r.cca.length > 0">
+                <div class="resume-section-header">LEADERSHIP AND TEAMWORK</div>
+                <hr>
+                <div *ngFor="let c of r.cca" class="resume-section">
+                    <span class="resume-section-name">
+                        {{c.cName | uppercase}}
+                        <span class="resume-section-country">
+                            {{c.cCountry}}
+                        </span>
+                    </span>
+                    <div class="resume-section-title">
+                        {{c.cTitle}}
+                        <span class="resume-section-dates">
+                            {{c.cFrom | date:'MMM yyyy'}}
+                            <span *ngIf="c.cCurrent; else elseBlock">
+                                - Current
+                            </span>
+                            <ng-template #elseBlock>
+                                <span *ngIf="c.cTo">
+                                    - {{c.cTo | date:'MMM yyyy'}}
+                                </span>
+                            </ng-template>
+                        </span>
+                    </div>
+                    <ul *ngIf="c.cPoints">
+                        <li [innerHTML]="c.cPoints.replaceAll('\n', '\<li>')">
+                    </ul>
+                </div>
+            </div>
+
+
+            <div *ngIf="r.additional">
+                <div class="resume-section-header">ADDITIONAL INFORMATION</div>
+                <hr>
+                <div class="resume-section">
+                    <ul>
+                        <li [innerHTML]="r.additional.replaceAll('\n', '\<li>')">
+                    </ul>
+                </div>
             </div>
         </div>
     </div>

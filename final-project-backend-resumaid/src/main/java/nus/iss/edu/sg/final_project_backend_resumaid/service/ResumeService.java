@@ -66,7 +66,11 @@ public class ResumeService {
             // If got new photo: Save new and delete old
             System.out.println("GOT NEW PHOTO");
             url = s3Repo.upload(file, userId);
-            s3Repo.delete(resume.getUrl());
+
+            // Delete only if have existing photo
+            if (!resume.getUrl().equals("")) {
+                s3Repo.delete(resume.getUrl());
+            }
         } else {
             // If no new photo
             System.out.println("NO NEW PHOTO");

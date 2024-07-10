@@ -24,8 +24,12 @@ export class ResumeService {
 
   getResumeById(id: string, userId: string) {
     const params = new HttpParams().set('id', id)
-    return this.http.get<resume>(`${this.urlViewExt}/${userId}`, {params, headers: this.headers})
-
+    console.log(">>>USERID:", userId)
+    console.log(">>>RESUMEID:", id)
+    const url = `${this.urlViewExt}/${userId}`;
+    console.log(">>>URL:", url)
+    return this.http.get<resume>(url, {params, headers: this.headers})
+    // return this.http.get<resume>(`${this.urlViewExt}/${userId}`, {params, headers: this.headers})
   }
 
   updateResumeById(id: string, userId: string, formData: FormData) {

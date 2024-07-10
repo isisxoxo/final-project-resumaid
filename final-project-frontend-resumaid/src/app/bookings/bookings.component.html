@@ -1,0 +1,8 @@
+<div *ngFor="let r of result; let i = index">
+    <li>
+        Time: {{r.starttime.value | date:'dd MMM yy: hh:mmaa'}} - {{r.endtime.value | date:'shortTime'}} SGT
+        <br>
+        Meeting Link: {{r.meetinglink}}
+    </li>
+</div>
+<button [routerLink]="['/main', userId]">Back</button>

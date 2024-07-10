@@ -48,12 +48,13 @@ public class GoogleCalRepo implements Queries {
         List<Booking> bookings = new LinkedList<>();
 
         SqlRowSet rs = template.queryForRowSet(GET_BOOKINGS_BY_USERID, userid);
+
         while (rs.next()) {
             Booking booking = new Booking();
             booking.setId(rs.getString("id"));
             booking.setUserid(rs.getString("userid"));
-            booking.setStarttime((DateTime) rs.getObject("starttime"));
-            booking.setEndtime((DateTime) rs.getObject("endtime"));
+            booking.setStarttime(DateTime.parseRfc3339(rs.getString("starttime") + ":00.0000+08:00"));
+            booking.setEndtime(DateTime.parseRfc3339(rs.getString("endtime") + ":00.0000+08:00"));
             booking.setMeetinglink(rs.getString("meetinglink"));
             bookings.add(booking);
         }

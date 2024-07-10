@@ -17,4 +17,12 @@ export class ConsultationService {
     console.log("GET AVAIL BOOKINGS")
     return this.http.get<any>(`${this.urlCalExt}/available`, {params, headers: this.headers})
   }
+
+  postBooking(id: string, userId: string) {
+    return this.http.post<boolean>(`${this.urlCalExt}/book/${userId}`, id, {headers: this.headers})
+  }
+
+  getBookingsByUser(userId: string) {
+    return this.http.get<Booking[]>(`${this.urlCalExt}/all/${userId}`, {headers: this.headers}) 
+  }
 }

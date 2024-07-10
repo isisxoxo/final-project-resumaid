@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ResumeStore } from '../../services/resume.store';
 import { ImageStore } from '../../services/image.store';
+import { ActivatedRoute } from '@angular/router';
+import { ResumeService } from '../../services/resume.service';
+import { resume } from '../../models/resume';
 
 @Component({
   selector: 'app-resumepreview',
@@ -14,7 +17,8 @@ export class ResumepreviewComponent implements OnInit {
   savedImgUrl$!: Observable<string>
   previewUrl!: string | ArrayBuffer | null
 
-  constructor(private resumeStore: ResumeStore, private imageStore: ImageStore) {
+  constructor(private resumeStore: ResumeStore, private imageStore: ImageStore, 
+              private activatedRoute: ActivatedRoute) {
   }
 
   ngOnInit(): void {
@@ -25,6 +29,8 @@ export class ResumepreviewComponent implements OnInit {
 
     this.savedResume$.subscribe(
       data => {
+        console.log("data store:", data)
+
         if(data.fileSource) {
           //PREVIEW IMAGE
           console.log("DATA.MYPIC", data.fileSource)
@@ -37,8 +43,9 @@ export class ResumepreviewComponent implements OnInit {
         } else {
           this.previewUrl = null
         }
-      })
+      }
+    )
 
-      console.log("PREVIEW URL:",this.previewUrl)
+    console.log("PREVIEW URL:",this.previewUrl)
   }
 }

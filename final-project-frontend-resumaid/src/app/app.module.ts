@@ -14,7 +14,6 @@ import { JwtService } from './services/jwt.service';
 import { jwtInterceptor } from './jwt.interceptor';
 import { enterRestricted } from './route.guards';
 import { CreateComponent } from './components/create/create.component';
-import { TemplateselectorComponent } from './components/create/templateselector.component';
 import { ResumebuilderComponent } from './components/create/resumebuilder.component';
 import { ResumepreviewComponent } from './components/create/resumepreview.component';
 import { ResumeService } from './services/resume.service';
@@ -31,16 +30,25 @@ import { StripeService } from './services/stripe.service';
 import { PaymentComponent } from './components/payment/payment.component';
 import { DownloadComponent } from './components/download/download.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { SuccessComponent } from './components/payment/success.component';
+import { CancelComponent } from './components/payment/cancel.component';
+import { BookingsComponent } from './bookings/bookings.component';
+import { HomeComponent } from './home/home.component';
+import { ToolbarComponent } from './toolbar/toolbar.component';
 
 const appRoutes: Routes = [
-  {path: '', component: RegistrationComponent},
+  {path: '', component: HomeComponent},
+  {path: 'registration', component: RegistrationComponent},
   {path: 'login', component: LoginComponent},
   {path: 'main/:id', component: MainComponent, canActivate: [enterRestricted]},
   {path: 'create/:id', component: CreateComponent, canActivate: [enterRestricted]},
   {path: 'view/:id', component: DraftsComponent, canActivate: [enterRestricted]},
   {path: 'consult/:id', component: ConsultationComponent, canActivate: [enterRestricted]},
   {path: 'payment/:id', component: PaymentComponent, canActivate: [enterRestricted]},
+  {path: 'success/:id', component: SuccessComponent, canActivate: [enterRestricted]},
+  {path: 'cancel/:id', component: CancelComponent, canActivate: [enterRestricted]},
   {path: 'download/:id', component: DownloadComponent, canActivate: [enterRestricted]},
+  {path: 'bookings/:id', component: BookingsComponent, canActivate: [enterRestricted]},
   {path: '**', redirectTo:'/', pathMatch: 'full'}
 ]
 
@@ -51,14 +59,18 @@ const appRoutes: Routes = [
     LoginComponent,
     MainComponent,
     CreateComponent,
-    TemplateselectorComponent,
     ResumebuilderComponent,
     ResumepreviewComponent,
     OllamaComponent,
     DraftsComponent,
     ConsultationComponent,
     PaymentComponent,
-    DownloadComponent
+    DownloadComponent,
+    SuccessComponent,
+    CancelComponent,
+    BookingsComponent,
+    HomeComponent,
+    ToolbarComponent
   ],
   imports: [
     BrowserModule,

@@ -10,7 +10,7 @@ create table users (
     email varchar(128) not null,
     password varchar(60) not null, -- For BCrypt algorithm
     primary key(id)
-)
+);
 
 create table bookings (
     id char(128) not null,
@@ -21,7 +21,7 @@ create table bookings (
     primary key(id),
     constraint fk_user_id foreign key(userid)
         references users(id)
-)
+);
 
 grant all privileges on resumaid.* to 'fred'@'localhost';
 
