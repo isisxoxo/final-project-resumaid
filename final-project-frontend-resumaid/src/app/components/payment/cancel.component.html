@@ -1,2 +1,10 @@
-<p>Cancelled: Payment Failed</p>
-<button [routerLink]="['/main', userId]">Go Back to Main</button>
+<body>
+    <div class="cancel-div">
+        <div class="cancel-div-box">
+            <mat-icon class="icon-display" [ngStyle]="{'color':'#FF5252'}">cancel</mat-icon>
+            <br>
+            <h2>Booking Cancelled: Payment Failed!</h2>
+            <button mat-raised-button color="primary" [routerLink]="['/main', userId]">Go Back to Main</button>
+        </div>
+    </div>
+</body>

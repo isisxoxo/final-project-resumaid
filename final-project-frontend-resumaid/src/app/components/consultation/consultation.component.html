@@ -1,34 +1,107 @@
-<!-- Date range: https://material.angular.io/components/datepicker/overview -->
-<h3>Not satisified with your resume yet? Book a timeslot with our professional consultant now!</h3>
-<div>
-    <form method="get" [formGroup]="dateForm" (ngSubmit)="onSubmit()">
-        <div>
-            Start Date: <input type="date" formControlName="startDate">
-            <div *ngIf="dateForm.get('startDate')?.hasError('required')">
-                Start date is required.
-            </div>
-        </div>
-        <div>
-            End Date: <input type="date" formControlName="endDate">
-            <div *ngIf="dateForm.get('endDate')?.hasError('required')">
-                End date is required.
-            </div>
+<body>
+
+    <mat-horizontal-stepper>
+        <ng-template matStepperIcon="edit" let-index="index">
+            {{index+1}}
+        </ng-template>
+        <mat-step [completed]="true">
+            <ng-template matStepLabel>Build your resume</ng-template>
+        </mat-step>
+        <mat-step [completed]="true">
+            <ng-template matStepLabel>Book a private consultation</ng-template>
+        </mat-step>
+        <mat-step [completed]="false">
+            <ng-template matStepLabel>Download as PDF</ng-template>
+        </mat-step>
+    </mat-horizontal-stepper>
+
+    <div class="booking-div">
+        <!-- Date range: https://material.angular.io/components/datepicker/overview -->
+        <div class="booking-title-1">
+            Not satisified with your resume yet?
         </div>
         <br>
-        <button type="submit">Search</button>
-    </form>
-</div>
-<br>
-<div>
-    <button type="button" (click)="skip()">Skip</button>
-</div>
-<div *ngIf="availableBookings$ | async as availableBookings">
-    <h4>Available Time Slots:</h4>
-    <div *ngFor="let b of availableBookings; let i index">
-        <li>
-            <button mat-button color="primary" (click)="clickBooking(b)">
-                {{b.start.dateTime.value | date:'dd MMM yy: hh:mmaa'}} - {{b.end.dateTime.value | date:'shortTime'}} SGT
-            </button>
-        </li>
+        <div class="booking-title-2">
+            Book a timeslot with our professional consultant now!
+        </div>
+        <br>
+        <form method="get" [formGroup]="dateForm" (ngSubmit)="onSubmit()">
+
+            <!-- NG MAT -->
+            <mat-form-field>
+                <mat-label>Enter a date range</mat-label>
+                <mat-date-range-input [rangePicker]="picker">
+                    <input matStartDate placeholder="Start date" formControlName="startDate">
+                    <input matEndDate placeholder="End date" formControlName="endDate">
+                </mat-date-range-input>
+                <mat-hint>DD/MM/YYYY – DD/MM/YYYY</mat-hint>
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-date-range-picker #picker></mat-date-range-picker>
+                <mat-error
+                    *ngIf="(dateForm.get('startDate')?.hasError('required')) || (dateForm.get('endDate')?.hasError('required'))">
+                    Date range is required.
+                </mat-error>
+            </mat-form-field>
+
+            <br>
+            <button mat-raised-button color="primary" type="submit">Search</button>
+        </form>
+
+        <div>
+            <button mat-button type="button" (click)="skip()">Skip</button>
+        </div>
+
+        <!-- AVAILABLE BOOKINGS -->
+        <div class="available-booking" *ngIf="availableBookings$ | async as availableBookings">
+            <span class="description">
+                This 1h timeslot is to book a 1:1 private virtual meeting with our resume
+                consultant, who is highly trained in providing professional advice to improve your resume and to make it
+                ATS-friendly.&nbsp;Appointments are only confirmed once payment of $50 has been successful.
+            </span>
+            <br>
+            <h4>Available Time Slots:</h4>
+            <table>
+                <tr *ngFor="let b of paginatedBookings; let i index">
+                    <td class="timeslot">
+                        {{b.start.dateTime.value | date:'dd MMM yy'}}:&nbsp;&nbsp;{{b.start.dateTime.value | date:'hh:mm
+                        aa'}} - {{b.end.dateTime.value |
+                        date:'shortTime'}} SGT
+                    </td>
+                    <td>
+                        <button mat-stroked-button (click)="clickBooking(b)">
+                            Book
+                        </button>
+                    </td>
+                </tr>
+            </table>
+            <mat-paginator *ngIf="availableBookings" [length]="availableBookings.length" [pageSize]="5"
+                (page)="paginate($event)">
+            </mat-paginator>
+
+            <!-- <div *ngFor="let b of availableBookings; let i index">
+                <li>
+                    <button mat-button color="primary" (click)="clickBooking(b)">
+                        {{b.start.dateTime.value | date:'dd MMM yy: hh:mmaa'}} - {{b.end.dateTime.value |
+                        date:'shortTime'}}
+                        SGT
+                    </button>
+                </li>
+            </div> -->
+        </div>
+    </div>
+</body>
+
+
+<!-- CSS -->
+<!-- <div>
+    Start Date: <input type="date" formControlName="startDate">
+    <div *ngIf="dateForm.get('startDate')?.hasError('required')">
+        Start date is required.
     </div>
 </div>
+<div>
+    End Date: <input type="date" formControlName="endDate">
+    <div *ngIf="dateForm.get('endDate')?.hasError('required')">
+        End date is required.
+    </div>
+</div> -->

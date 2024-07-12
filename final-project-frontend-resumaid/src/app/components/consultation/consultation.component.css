@@ -1,0 +1,60 @@
+body {
+    background-image: url("/assets/Background-image-1.png");
+    background-size: cover;
+    background-repeat: repeat-y;
+}
+mat-horizontal-stepper {
+    padding-left: 8vw;
+    padding-right: 8vw;
+    height: 60px;
+    background-color: transparent;
+}
+:host ::ng-deep .mat-horizontal-content-container {
+    padding:0 !important;
+}
+::ng-deep .mat-horizontal-stepper-header{
+    pointer-events: none !important;
+}
+.booking-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.booking-title-1 {
+    font-family: "Monaco", Courier;
+    font-size: 3.5vh;
+    color: rgba(0, 0, 0, 0.6);
+}
+.booking-title-2 {
+    font-family: "Monaco", Courier;
+    font-size: 2vh;
+    color: rgba(0, 0, 0, 0.6);
+}
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center
+}
+.available-booking {
+    background-color: white;
+    padding: 30px 30px 10px 30px;
+    margin-left: 30vw;
+    margin-right: 30vw;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.description {
+    text-align: justify;
+    font-family: 'Gill Sans', sans-serif;
+    color: rgb(50, 49, 49);
+}
+h4 {
+    margin-block: 0.5em;
+    font-family: "Monaco", Courier;
+}
+.timeslot {
+    font-family: 'Gill Sans', sans-serif;
+    padding: 10px;
+}

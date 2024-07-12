@@ -1,8 +1,32 @@
-<div *ngFor="let r of result; let i = index">
-    <li>
-        Time: {{r.starttime.value | date:'dd MMM yy: hh:mmaa'}} - {{r.endtime.value | date:'shortTime'}} SGT
-        <br>
-        Meeting Link: {{r.meetinglink}}
-    </li>
-</div>
-<button [routerLink]="['/main', userId]">Back</button>
+<body>
+    <div class="button-div">
+        <button mat-button [routerLink]="['/main', userId]">
+            <mat-icon>arrow_back</mat-icon>
+            Back to Main
+        </button>
+    </div>
+    <div class="list-div">
+        <h2>All Your Upcoming Consultations:</h2>
+        <div class="table-div">
+            <table>
+                <thead>
+                    <th>Date</th>
+                    <th>Timeslot</th>
+                    <th>Link</th>
+                </thead>
+                <tr *ngFor="let r of result; let i = index">
+                    <td>
+                        {{r.starttime.value | date:'dd MMM yyyy'}}
+                    </td>
+                    <td>
+                        {{r.starttime.value | date:'hh:mmaa'}} - {{r.endtime.value | date:'shortTime'}} SGT
+                    </td>
+                    <td>
+                        <a [matTooltip]="r.meetinglink" matTooltipPosition="right" [href]="r.meetinglink">Meeting
+                            Link</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</body>

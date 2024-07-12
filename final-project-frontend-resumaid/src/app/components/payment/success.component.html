@@ -1,2 +1,11 @@
-<p>Your Booking is Successful!</p>
-<button [routerLink]="['/download', userId]" [queryParams]="{ q: resumeId }">Click to Proceed to Download Resume as PDF</button>
+<body>
+    <div class="success-div">
+        <div class="success-div-box">
+            <mat-icon class="icon-display" [ngStyle]="{'color':'rgb(65, 147, 65)'}">check_circle</mat-icon>
+            <br>
+            <h2>Your Booking is Successful!</h2>
+            <button mat-raised-button color="primary" [routerLink]="['/download', userId]"
+                [queryParams]="{ q: resumeId }">Proceed to Download Resume as PDF</button>
+        </div>
+    </div>
+</body>

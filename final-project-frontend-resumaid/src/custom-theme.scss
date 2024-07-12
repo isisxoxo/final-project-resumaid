@@ -16,10 +16,10 @@
 // $final-project-frontend-resumaid-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
 // $final-project-frontend-resumaid-primary: mat.define-palette(mat.$pink-palette, 200, 50, 300);
 $final-project-frontend-resumaid-primary: mat.define-palette(mat.$cyan-palette, A100, 50, A200);
-$final-project-frontend-resumaid-accent: mat.define-palette(mat.$grey-palette, 100, 50, 200);
+$final-project-frontend-resumaid-accent: mat.define-palette(mat.$grey-palette, 200, 100, 300);
 
 // The warn palette is optional (defaults to red).
-$final-project-frontend-resumaid-warn: mat.define-palette(mat.$red-palette);
+$final-project-frontend-resumaid-warn: mat.define-palette(mat.$red-palette, A200);
 
 // Create the theme object. A theme consists of configurations for individual
 // theming systems such as "color" or "typography".
@@ -39,4 +39,6 @@ $final-project-frontend-resumaid-theme: mat.define-light-theme((
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
 @include mat.all-component-themes($final-project-frontend-resumaid-theme);
+
+
 

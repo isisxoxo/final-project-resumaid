@@ -1,3 +1,6 @@
+body {
+    background-color: white;
+}
 .resume-preview {
     /* width: 210mm
     height: 297mm */
@@ -9,22 +12,29 @@
     height: 100%;
     max-height: 100%;
     max-width: 100%;
-    border: 1px solid black;
-    padding: 3vh;
+    border: 1px solid rgb(194, 192, 192);
+    /* padding: 3vh; */
+    padding: 1.8vw;
+    /* padding: 3cqh; */
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
     position: relative; /* Added to position the image within this container */
+    container-type: size;
 }
 
 .resume-text {
     overflow: hidden;
     flex: 1;
-    font-size: 1.1vh;
+    /* font-size: 1.1vh; */
+    font-size: 0.55vw;
+    /* font-size: 1.3cqh; */
 }
 
 .resume-name { 
-    font-size: 2vh;
+    /* font-size: 2vh; */
+    font-size: 1vw;
+    /* font-size: 2.5cqh; */
     text-align: center;
     font-weight: bold;
 }
@@ -34,8 +44,8 @@
 }
 
 .image {
-    aspect-ratio: 35 / 45;
-    max-height: 7.5vh;
+    aspect-ratio: 35 / 45; /* passport photo */
+    max-height: 7vh;
     float: right;
     position: absolute;
     top: 1vh; /* Adjust to match the padding of .resume-preview */
@@ -62,7 +72,15 @@ hr {
 }
 
 .resume-section {
-    margin-bottom: 1vh;
+    margin-bottom: 0.6vw;
+    /* margin-bottom: 1.2vh; */
+}
+.dummy-div {
+    height: 0.1px;
+}
+
+.resume-section-additional {
+    margin-top: 0.2vh;
 }
 
 .resume-section-name {
@@ -77,8 +95,10 @@ hr {
 
 .resume-section-title {
     font-style: italic;
-    margin-top: 0.15vh;
-    margin-bottom: 0.15vh;
+    margin-top: 0.1vw;
+    margin-bottom: 0.1vw;
+    /* margin-top: 0.2vh;
+    margin-bottom: 0.2vh; */
 }
 
 .resume-section-dates {
@@ -87,7 +107,8 @@ hr {
 }
 
 ul {
-    padding-inline-start: 1vh;
+    padding-inline-start: 0.5vw;
+    /* padding-inline-start: 1vh; */
     list-style-position: outside;
     margin-top: 0;
     margin-bottom: 0;
@@ -95,5 +116,18 @@ ul {
 }
 
 li {
-    margin-left: 1vh;
+    margin-left: 0.5vw;
+    /* margin-left: 1vh; */
 }
+
+/* @media only screen and (min-height: 1080px) {
+    .resume-preview {
+        padding: 2vw;
+    }
+    .resume-text {
+      font-size: 1.32cqh;
+    }
+    .resume-name { 
+        font-size: 2.52cqh;
+    }
+} */

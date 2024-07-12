@@ -6,6 +6,7 @@ import { ResumeService } from '../../services/resume.service';
 import { ResumeStore } from '../../services/resume.store';
 import { resume } from '../../models/resume';
 import { ImageStore } from '../../services/image.store';
+import swal from 'sweetalert';
 
 @Component({
   selector: 'app-resumebuilder',
@@ -314,7 +315,8 @@ export class ResumebuilderComponent implements OnInit, OnDestroy {
             const result = data as {id: string}
             this.id = result.id
             console.log(">>>> SAVED RESUME:", this.id)
-            alert('File uploaded successfully!!!');
+            // alert('File uploaded successfully!!!');
+            swal( "Success", "New Resume Created Successfully!" , "success" );
   
             const queryParams = {q: this.id}
             console.log(this.id)
@@ -329,7 +331,8 @@ export class ResumebuilderComponent implements OnInit, OnDestroy {
           next: data => {
             const result = data
             console.log(">>>> UPDATED RESUME:", data)
-            alert('File updated successfully!!!');
+            // alert('File uploaded successfully!!!');
+          swal ( "Success", "Resume Saved Successfully!" , "success" );
   
             const queryParams = {q: this.id}
             console.log(this.id)
@@ -353,7 +356,8 @@ export class ResumebuilderComponent implements OnInit, OnDestroy {
           const result = data as {id: string}
           this.id = result.id
           console.log(">>>> SAVED RESUME:", this.id)
-          alert('File uploaded successfully!!!');
+          // alert('File uploaded successfully!!!');
+          swal( "Success", "New Resume Created Successfully!" , "success" );
 
           const queryParams = {q: this.id}
           console.log(this.id)

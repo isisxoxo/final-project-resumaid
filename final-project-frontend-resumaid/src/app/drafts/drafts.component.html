@@ -1,7 +1,39 @@
-<div *ngFor="let r of result; let i = index">
-    <li>
-        <a [routerLink]="['/create', userId]" [queryParams]="{ q: r.id }">{{r.title}}</a>
-        <button (click)="deleteResumeById(r.id, r.title)">Delete</button>
-    </li>
-</div>
-<button [routerLink]="['/main', userId]">Back to Main</button>
+<body>
+    <div class="button-div">
+        <button mat-button [routerLink]="['/main', userId]">
+            <mat-icon>arrow_back</mat-icon>
+            Back to Main
+        </button>
+    </div>
+    <div class="list-div">
+        <h2>All Your Existing Resumes:</h2>
+        <div class="table-container">
+            <div class="table-div">
+                <table>
+                    <thead>
+                        <th class="th-title">Resume Title</th>
+                        <th>Last Update Time</th>
+                        <th>Creation Time</th>
+                        <th>Action</th>
+                    </thead>
+                    <tr *ngFor="let r of result; let i = index">
+                        <td>
+                            <a matTooltip="Click to open resume" matTooltipPosition="right"
+                                [routerLink]="['/create', userId]" [queryParams]="{ q: r.id }">{{r.title}}</a>
+                        </td>
+                        <td class="td-center">
+                            <i>{{r.lastUpdateTime | date:'dd MMM yy, hh:mmaa'}}</i>
+                        </td>
+                        <td class="td-center">
+                            <i>{{r.creationTime | date:'dd MMM yy, hh:mmaa'}}</i>
+                        </td>
+                        <td class="td-center">
+                            <button matTooltip="Delete resume" matTooltipPosition="right" mat-stroked-button
+                                color="warn" (click)="deleteResumeById(r.id, r.title)">Delete</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>

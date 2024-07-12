@@ -24,7 +24,7 @@ export class OllamaComponent implements OnChanges {
 
     console.log(">>>>>> CHANGES:", changes)
 
-    this.response = "Loading..."
+    this.response = ""
 
     console.log("NGONCHANGES", this.message)
 

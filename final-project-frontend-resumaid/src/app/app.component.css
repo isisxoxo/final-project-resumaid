@@ -1,0 +1,9 @@
+.router-outlet-div {
+    height: calc(100vh - 64px - 17px);
+}
+.footer {
+    margin-left: 10px;
+    font-size: small;
+    font-family: 'Gill Sans', sans-serif;
+    font-weight: 100;
+}

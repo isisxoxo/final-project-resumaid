@@ -1,51 +1,169 @@
 <div>
+    <!-- <p class="note">*Note: Always remember to save your resume drafts</p> -->
     <form method="POST" [formGroup]="resumeForm" (ngSubmit)="onSubmit($event.submitter.id)">
 
-        <h4>
-            Resume Title: <input type="text" [value]="defaultTitle" formControlName="title">
-        </h4>
+        <div class="title-div">
+            <h3>Resume Title:</h3>
+            <mat-form-field class="resume-title-input">
+                <input matInput type="text" [value]="defaultTitle" formControlName="title">
+            </mat-form-field>
+        </div>
+
+        <!-- <table>
+            <tr>
+                <td>
+                    <h3>Resume Title:</h3>
+                </td>
+                <td class="td">
+                    <input type="text" class="resume-title" [value]="defaultTitle" formControlName="title">
+                </td>
+            </tr>
+        </table> -->
+
+        <!-- <table>
+            <tr>
+                <td>
+                    <h3>Resume Title:</h3>
+                </td>
+                <td class="td">
+                    <span>
+                        <mat-form-field class="resume-title">
+                            <input matInput type="text" [value]="defaultTitle" formControlName="title">
+                        </mat-form-field>
+                    </span>
+                </td>
+            </tr>
+        </table> -->
+
+        <!-- PERSONAL INFORMATION -->
         <br>
-        <div>
-            Full Name: <input type="text" formControlName="fullname">
-            <!-- VALIDATIONS -->
-            <div *ngIf="resumeForm.get('fullname')?.hasError('required')">
-                Full name is required.
-            </div>
+        <div class="header-section">
+            - Personal Information -
+        </div>
+        <hr>
+
+        <div class="personal-info-div">
+            <mat-form-field class="personal-info-input">
+                <mat-label>Full Name</mat-label>
+                <input matInput type="text" formControlName="fullname">
+                <!-- VALIDATIONS -->
+                <mat-error *ngIf="resumeForm.get('fullname')?.hasError('required')">
+                    Full name is required.
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="personal-info-input">
+                <mat-label>Phone Number</mat-label>
+                <input matInput type="text" formControlName="phone">
+                <!-- VALIDATIONS -->
+                <mat-error *ngIf="resumeForm.get('phone')?.hasError('required')">
+                    Phone number is required.
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="personal-info-email">
+                <mat-label>Email</mat-label>
+                <input matInput type="text" formControlName="email">
+                <!-- VALIDATIONS -->
+                <mat-error *ngIf="resumeForm.get('email')?.hasError('required')">
+                    Email is required.
+                </mat-error>
+                <mat-error *ngIf="resumeForm.get('email')?.hasError('email')">
+                    Enter email format.
+                </mat-error>
+            </mat-form-field>
         </div>
 
         <div>
-            Phone Number: <input type="text" formControlName="phone">
-            <!-- VALIDATIONS -->
-            <div *ngIf="resumeForm.get('phone')?.hasError('required')">
-                Phone number is required.
-            </div>
-        </div>
-
-        <div>
-            Email: <input type="text" formControlName="email">
-            <!-- VALIDATIONS -->
-            <div *ngIf="resumeForm.get('email')?.hasError('required')">
-                Email is required.
-            </div>
-            <div *ngIf="resumeForm.get('email')?.hasError('email')">
-                Enter email format.
-            </div>
-        </div>
-
-        <div>
-            Profile Picture:
-            <input type="file" class="form-control" formControlName="mypic" (change)="onFileSelect($event)" accept="image/*" #inputFile>
+            <span class="profile-pic">Profile Picture:</span>
+            <input type="file" class="form-control" formControlName="mypic" (change)="onFileSelect($event)"
+                accept="image/*" #inputFile>
             <!-- <input type="file" class="form-control" formControlName="mypic" accept="image/jpeg" -->
-            <button type="button" (click)="onFileDelete()">Remove Image</button>
+            <button type="button" (click)="onFileDelete()" class="remove-image-btn">Remove Image</button>
             <br>
             <br>
         </div>
 
+        <br>
+
+
+        <!-- EDUCATION -->
+        <div class="header-section">
+            - Education -
+        </div>
+        <hr>
         <div>
             <div>
-                <button type="button" (click)="addNewEducation()">Add New Education</button>
+                <button mat-raised-button type="button" (click)="addNewEducation()" class="custom-button">+ Add New
+                    Education</button>
             </div>
+            <br>
+
+            <!-- NG MAT -->
             <div *ngIf="educationArray.controls.length > 0"> <!-- Conditionally render table -->
+                <div formArrayName="education">
+                    <div class="edu-section-div" *ngFor="let edu of educationArray.controls; let i = index"
+                        [formGroupName]="i">
+                        <!-- ROW 1 -->
+                        <div class="edu-row-1">
+                            <mat-form-field class="edu-info-input">
+                                <mat-label>Edu Name</mat-label>
+                                <input matInput type="text" formControlName="eName">
+                            </mat-form-field>
+                            <mat-form-field class="edu-info-input">
+                                <mat-label>Edu Country</mat-label>
+                                <input matInput type="text" formControlName="eCountry">
+                            </mat-form-field>
+                            <mat-form-field class="edu-info-cert">
+                                <mat-label>Edu Certification</mat-label>
+                                <input matInput type="text" formControlName="eCert">
+                            </mat-form-field>
+                        </div>
+                        <!-- ROW 2 -->
+                        <div class="edu-row-2">
+                            <mat-form-field class="edu-info-input">
+                                <mat-label>Edu From</mat-label>
+                                <input matInput [matDatepicker]="pickereFrom" [defaultValue]="" formControlName="eFrom">
+                                <mat-hint>DD/MM/YYYY</mat-hint>
+                                <mat-datepicker-toggle matIconSuffix [for]="pickereFrom"></mat-datepicker-toggle>
+                                <mat-datepicker #pickereFrom></mat-datepicker>
+                            </mat-form-field>
+                            <mat-form-field class="edu-info-input">
+                                <mat-label>Edu To</mat-label>
+                                <input matInput [matDatepicker]="pickereTo" [defaultValue]="" formControlName="eTo">
+                                <mat-hint>DD/MM/YYYY</mat-hint>
+                                <mat-datepicker-toggle matIconSuffix [for]="pickereTo"></mat-datepicker-toggle>
+                                <mat-datepicker #pickereTo></mat-datepicker>
+                            </mat-form-field>
+                            <div class="edu-info-current">
+                                <span></span>Current?<span></span>
+                                <input class="current-checkbox" type="checkbox" (change)="isEChecked($event,i)"
+                                    formControlName="eCurrent">
+                                <!-- Current? <mat-checkbox (change)="isEChecked($event,i)"
+                                    formControlName="eCurrent"></mat-checkbox> -->
+                            </div>
+                        </div>
+                        <br>
+                        <!-- ROW 3 -->
+                        <mat-form-field>
+                            <mat-label>Edu Description</mat-label>
+                            <textarea matInput class="resume-textarea" formControlName="ePoints"></textarea>
+                        </mat-form-field>
+                        <!-- ROW 4 -->
+                        <div>
+                            <button mat-raised-button color="warn" type="button"
+                                (click)="deleteEducation(i)">Delete</button>
+                            <span></span>
+                            <button mat-raised-button color="" type="button" (click)="improveEducation(i)">Improve Using
+                                AI</button>
+                        </div>
+                        <div *ngIf="isEduOllama && (eduIndex == i)">
+                            <app-ollama [message]="onEduOllamaClick"></app-ollama>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CSS -->
+            <!-- <div *ngIf="educationArray.controls.length > 0">
                 <div formArrayName="education">
                     <div *ngFor="let edu of educationArray.controls; let i = index" [formGroupName]="i">
                         Education Name: <input type="text" formControlName="eName">
@@ -63,16 +181,90 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
+        <br>
 
+
+        <!-- WORK -->
+        <div class="header-section">
+            - Work Experience -
+        </div>
         <hr>
 
         <div>
             <div>
-                <button type="button" (click)="addNewWork()">Add New Work</button>
+                <button mat-raised-button type="button" (click)="addNewWork()" class="custom-button">+ Add New
+                    Work</button>
             </div>
+            <br>
+
+            <!-- NG MAT -->
             <div *ngIf="workArray.controls.length > 0"> <!-- Conditionally render table -->
+                <div formArrayName="work">
+                    <div class="work-section-div" *ngFor="let w of workArray.controls; let i = index"
+                        [formGroupName]="i">
+                        <!-- ROW 1 -->
+                        <div class="work-row-1">
+                            <mat-form-field class="work-info-input">
+                                <mat-label>Company</mat-label>
+                                <input matInput type="text" formControlName="wName">
+                            </mat-form-field>
+                            <mat-form-field class="work-info-input">
+                                <mat-label>Work Country</mat-label>
+                                <input matInput type="text" formControlName="wCountry">
+                            </mat-form-field>
+                            <mat-form-field class="work-info-role">
+                                <mat-label>Role</mat-label>
+                                <input matInput type="text" formControlName="wRole">
+                            </mat-form-field>
+                        </div>
+                        <!-- ROW 2 -->
+                        <div class="work-row-2">
+                            <mat-form-field class="work-info-input">
+                                <mat-label>Work From</mat-label>
+                                <input matInput [matDatepicker]="pickerwFrom" [defaultValue]="" formControlName="wFrom">
+                                <mat-hint>DD/MM/YYYY</mat-hint>
+                                <mat-datepicker-toggle matIconSuffix [for]="pickerwFrom"></mat-datepicker-toggle>
+                                <mat-datepicker #pickerwFrom></mat-datepicker>
+                            </mat-form-field>
+                            <mat-form-field class="work-info-input">
+                                <mat-label>Work To</mat-label>
+                                <input matInput [matDatepicker]="pickerwTo" [defaultValue]="" formControlName="wTo">
+                                <mat-hint>DD/MM/YYYY</mat-hint>
+                                <mat-datepicker-toggle matIconSuffix [for]="pickerwTo"></mat-datepicker-toggle>
+                                <mat-datepicker #pickerwTo></mat-datepicker>
+                            </mat-form-field>
+                            <div class="work-info-current">
+                                <span></span>Current?<span></span>
+                                <input class="current-checkbox" type="checkbox" (change)="isWChecked($event,i)"
+                                    formControlName="wCurrent">
+                            </div>
+                        </div>
+                        <br>
+                        <!-- ROW 3 -->
+                        <mat-form-field>
+                            <mat-label>Work Description</mat-label>
+                            <textarea matInput class="resume-textarea" formControlName="wPoints"></textarea>
+                        </mat-form-field>
+                        <!-- ROW 4 -->
+
+
+                        <div>
+                            <button mat-raised-button color="warn" type="button" (click)="deleteWork(i)">Delete</button>
+                            <span></span>
+                            <button mat-raised-button color="" type="button" (click)="improveWork(i)">Improve
+                                Using AI</button>
+                        </div>
+                        <div *ngIf="isWorkOllama && (workIndex == i)">
+                            <app-ollama [message]="onWorkOllamaClick"></app-ollama>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CSS -->
+            <!-- <div *ngIf="workArray.controls.length > 0">
                 <div formArrayName="work">
                     <div *ngFor="let w of workArray.controls; let i = index" [formGroupName]="i">
                         Company: <input type="text" formControlName="wName">
@@ -90,16 +282,88 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
+        <br>
 
+
+        <!-- CCA -->
+        <div class="header-section">
+            - Leadership and Teamwork -
+        </div>
         <hr>
 
         <div>
             <div>
-                <button type="button" (click)="addNewCca()">Add New Co-curricular Activities/Competitions</button>
+                <button mat-raised-button type="button" (click)="addNewCca()" class="custom-button">+ Add New
+                    Co-curricular Activities/Competitions</button>
             </div>
-            <div *ngIf="ccaArray.controls.length > 0"> <!-- Conditionally render table -->
+            <br>
+
+            <!-- NG MAT -->
+            <div *ngIf="ccaArray.controls.length > 0">
+                <div formArrayName="cca">
+                    <div class="cca-section-div" *ngFor="let c of ccaArray.controls; let i = index" [formGroupName]="i">
+                        <!-- ROW 1 -->
+                        <div class="cca-row-1">
+                            <mat-form-field class="cca-info-input">
+                                <mat-label>Activity</mat-label>
+                                <input matInput type="text" formControlName="cName">
+                            </mat-form-field>
+                            <mat-form-field class="cca-info-input">
+                                <mat-label>Country</mat-label>
+                                <input matInput type="text" formControlName="cCountry">
+                            </mat-form-field>
+                            <mat-form-field class="cca-info-title">
+                                <mat-label>Title</mat-label>
+                                <input matInput type="text" formControlName="cTitle">
+                            </mat-form-field>
+                        </div>
+                        <!-- ROW 2 -->
+                        <div class="cca-row-2">
+                            <mat-form-field class="cca-info-input">
+                                <mat-label>Activity From</mat-label>
+                                <input matInput [matDatepicker]="pickercFrom" [defaultValue]="" formControlName="cFrom">
+                                <mat-hint>DD/MM/YYYY</mat-hint>
+                                <mat-datepicker-toggle matIconSuffix [for]="pickercFrom"></mat-datepicker-toggle>
+                                <mat-datepicker #pickercFrom></mat-datepicker>
+                            </mat-form-field>
+                            <mat-form-field class="cca-info-input">
+                                <mat-label>Activity To</mat-label>
+                                <input matInput [matDatepicker]="pickercTo" [defaultValue]="" formControlName="cTo">
+                                <mat-hint>DD/MM/YYYY</mat-hint>
+                                <mat-datepicker-toggle matIconSuffix [for]="pickercTo"></mat-datepicker-toggle>
+                                <mat-datepicker #pickercTo></mat-datepicker>
+                            </mat-form-field>
+                            <div class="cca-info-current">
+                                <span></span>Current?<span></span>
+                                <input class="current-checkbox" type="checkbox" (change)="isCChecked($event,i)"
+                                    formControlName="cCurrent">
+                            </div>
+                        </div>
+                        <br>
+                        <!-- ROW 3 -->
+                        <mat-form-field>
+                            <mat-label>Activity Description</mat-label>
+                            <textarea matInput class="resume-textarea" formControlName="cPoints"></textarea>
+                        </mat-form-field>
+                        <!-- ROW 4 -->
+                        <div>
+                            <button mat-raised-button color="warn" type="button" (click)="deleteCca(i)">Delete</button>
+                            <span></span>
+                            <button mat-raised-button color="" type="button" (click)="improveCca(i)">Improve
+                                Using AI</button>
+                        </div>
+                        <div *ngIf="isCcaOllama && (ccaIndex == i)">
+                            <app-ollama [message]="onCcaOllamaClick"></app-ollama>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- CSS -->
+            <!-- <div *ngIf="ccaArray.controls.length > 0">
                 <div formArrayName="cca">
                     <div *ngFor="let c of ccaArray.controls; let i = index" [formGroupName]="i">
                         Activity: <input type="text" formControlName="cName">
@@ -117,23 +381,31 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
+
         </div>
+        <br>
 
         <hr>
 
-        <div>
-            Additional Information: <textarea formControlName="additional"></textarea>
+        <!-- ADDITIONAL -->
+        <div class="add-div">
+            <mat-form-field class="resume-add-field">
+                <mat-label>Additional Information</mat-label>
+                <textarea matInput class="resume-textarea" formControlName="additional"></textarea>
+            </mat-form-field>
         </div>
 
         <br>
         <div>
-            <button type="submit" id="save" [disabled]="resumeForm.invalid">Save</button>
+            <button mat-stroked-button class="custom-button-2" type="submit" id="save"
+                [disabled]="resumeForm.invalid">Save</button>
         </div>
         <br>
         <!-- If have query param (existing resume) -->
         <div *ngIf="id">
-            <button type="submit" id="new" [disabled]="resumeForm.invalid">Save As New Resume Copy</button>
+            <button mat-flat-button color="primary" type="submit" id="new" [disabled]="resumeForm.invalid">Save As New
+                Resume Copy</button>
         </div>
     </form>
     <br>

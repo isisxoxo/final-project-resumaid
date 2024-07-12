@@ -1,0 +1,44 @@
+body {
+    background-image: url("/assets/Background-image-1.png");
+    background-size: cover;
+    background-repeat: repeat-y;
+    display: flex;
+    justify-content: center;
+}
+/* .cancel-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    padding-top: 5vh;
+} */
+.cancel-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 10vh;
+    padding: 5vh;
+    width: 20em;
+    height: 20em;
+    border-radius: 5em;
+    /* background-color: gray; */
+    /* background-color: #d3879b; */
+    background-image: linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), url("/assets/div-stain-bg-1.jpeg");
+    opacity: 0.7;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+.cancel-div-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+h2 {
+    color: black;
+    font-family: "Monaco", Courier;
+    text-align: center;
+}
+mat-icon {
+    transform: scale(3);
+}

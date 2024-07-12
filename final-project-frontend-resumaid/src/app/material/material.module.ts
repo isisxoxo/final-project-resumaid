@@ -11,17 +11,31 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import {MatGridListModule} from '@angular/material/grid-list';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material/core';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatListModule} from '@angular/material/list';
+import {MatStepperModule} from '@angular/material/stepper';
+import { DateAdapter } from '@angular/material/core';
 
 const matModules: any[] = [
   MatMenuModule, MatIconModule,
   MatFormFieldModule, MatInputModule, MatCardModule,
   MatDialogModule, MatTabsModule, MatProgressSpinnerModule,
   MatTooltipModule, MatToolbarModule, MatButtonModule,
-  MatGridListModule
+  MatGridListModule, MatCheckboxModule, MatDatepickerModule,
+  MatNativeDateModule, MatPaginatorModule, MatListModule,
+  MatStepperModule
 ]
 
 @NgModule({
   imports: [matModules],
   exports: [matModules]
 })
-export class MaterialModule { }
+export class MaterialModule { 
+
+  constructor(private dateAdapter: DateAdapter<Date>) {
+      this.dateAdapter.setLocale('en-GB'); //dd/MM/yyyy
+  }
+}

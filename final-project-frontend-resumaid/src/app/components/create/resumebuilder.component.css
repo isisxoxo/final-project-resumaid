@@ -1,0 +1,103 @@
+span {
+    padding-left: 7px;
+}
+.title-div,
+.add-div,
+.personal-info-div,
+.edu-row-1,
+.edu-row-2,
+.work-row-1,
+.work-row-2,
+.cca-row-1,
+.cca-row-2 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.resume-title-input {
+    flex: 1;
+    margin-left: 7px;
+    padding-inline: 5px;
+    font-size: medium;
+    font-weight: 550;
+    margin-top: 20px;
+}
+.personal-info-input,
+.edu-info-input,
+.work-info-input,
+.cca-info-input {
+    flex: 1;
+    margin-right: 10px;
+}
+.personal-info-email,
+.edu-info-cert,
+.work-info-role,
+.cca-info-title {
+    flex: 1;
+}
+.edu-info-current,
+.work-info-current,
+.cca-info-current {
+    flex: 1;
+    font-family: 'Gill Sans', sans-serif;
+    color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: large;
+}
+.current-checkbox {
+    accent-color: rgb(216, 148, 166);
+    width: 15px;
+    height: 15px;
+}
+.resume-add-field {
+    flex: 1;
+}
+.resume-textarea {
+    min-height: 75px;
+}
+
+.edu-section-div,
+.work-section-div,
+.cca-section-div {
+    background-color: lightcyan;
+    border-radius: 15px;
+    padding: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.header-section {
+    font-size: large;
+    font-weight: bold;
+    text-align: center;
+    /* font-family: "Monaco", Courier; */
+    color: rgba(0, 0, 0, 0.6);
+}
+.profile-pic {
+    margin-right: 5px; 
+    font-family: 'Gill Sans', sans-serif;
+}
+
+.custom-button {
+    background-color: lightcyan;
+}
+.custom-button-2 {
+    background-color: rgb(246, 181, 198)
+}
+.remove-image-btn {
+    color: rgb(169, 112, 127);
+}
+
+/* .td {
+    width: 80%;
+}
+.resume-title {
+    width: 100%;
+    margin-left: 7px;
+    padding-inline: 5px;
+    font-size: medium;
+    font-weight: 550;
+} */

@@ -1,0 +1,78 @@
+body {
+    background-image: url("/assets/Background-image-1.png");
+    background-size: cover;
+    background-repeat: repeat-y;
+}
+.button-div {
+    padding-left: 8vw;
+    padding-right: 8vw;
+}
+.list-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    padding-bottom: 15vh;
+    box-sizing: border-box;
+}
+.table-container {
+    flex: 1;
+    height:100%;
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+    align-items: center;
+    border: 1px solid gray;
+    border-radius: 20px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+.table-div {
+    flex: 1;
+    overflow-y: scroll;
+    padding: 10px;
+}
+table {
+    border-spacing: 8px;
+    width: 100%;
+}
+th {
+    font-size: large;
+}
+.th-title {
+    text-align:left
+}
+tr {
+    font-family: 'Gill Sans', sans-serif;
+}
+.td-center {
+    text-align: center; 
+}
+h2 {
+    font-family: "Monaco", Courier;
+    color: rgba(0, 0, 0, 0.6);
+}
+a {
+    text-decoration: none;
+}
+i {
+    font-size: small;
+}
+/* unvisited link */
+/* visited link */
+a:link,
+a:visited {
+    color: darkcyan;
+}
+
+/* mouse over link */
+a:hover {
+color: rgb(203, 136, 154);
+}
+
+/* selected link */
+a:active {
+color: gray;
+}
+  

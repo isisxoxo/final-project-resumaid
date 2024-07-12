@@ -1,4 +1,4 @@
-.app-container {
+/* .app-container {
     display: flex;
     flex-direction: row;
     height: 90%;
@@ -22,4 +22,75 @@
 .app-form {
     padding: 0mm 10mm 10mm 10mm;
     overflow-y: auto;
+} */
+body {
+    background-image: url("/assets/Background-image-1.png");
+    background-size: cover;
+    background-repeat: repeat-y;
+}
+mat-horizontal-stepper {
+    padding-left: 8vw;
+    padding-right: 8vw;
+    height: 60px;
+    background-color: transparent;
+}
+:host ::ng-deep .mat-horizontal-content-container {
+    padding: 0 !important;
+}
+::ng-deep .mat-horizontal-stepper-header{
+    pointer-events: none !important;
+}
+.main-div {
+    padding-left: 5vw;
+    padding-right: 5vw;
+    height: calc(100% - 60px);
+}
+.app-container {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    width: 100%;
+    flex: 1;
+}
+.app-preview {
+    flex: 1;
+    /* height: 100%; */
+    padding: 5mm 5mm 5mm 5mm;
+    display: flex;
+    justify-content: center;
+}
+.app-form-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    align-items: center;
+}
+.download-div {
+    flex: 0.7;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10vh;
+    margin-left: 5em;
+    padding: 5vh;
+    height: 20em;
+    border-radius: 5em;
+    /* background-color: #ddabb8; */
+    /* opacity: 0.9; */
+    background-image: linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), url("/assets/div-stain-bg-1.jpeg");
+    opacity: 0.8;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.download-div-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.download-title-1 {
+    font-family: "Monaco", Courier;
+    font-size: 3.5vh;
+    color: rgba(0, 0, 0, 0.6);
 }

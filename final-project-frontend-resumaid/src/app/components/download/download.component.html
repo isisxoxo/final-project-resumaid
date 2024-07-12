@@ -1,24 +1,41 @@
-<p>Download to PDF!</p>
-<!--The content below is only a placeholder and can be replaced.-->
+<body>
 
-<div class="app-container">
-    <div class="app-form-content">
-        <div>
-            <strong>Html To PDF in Angular Application</strong>
-        </div>
-        <br>
-        <div>
-            <input type="button" value="Convert" (click)="convertToPDF()" />
-        </div>
-        <br>
-        <div>
-            <button [routerLink]="['/main', userId]">Back to Main</button>
+    <mat-horizontal-stepper>
+        <ng-template matStepperIcon="edit" let-index="index">
+            {{index+1}}
+        </ng-template>
+        <mat-step [completed]="true">
+            <ng-template matStepLabel>Build your resume</ng-template>
+        </mat-step>
+        <mat-step [completed]="true">
+            <ng-template matStepLabel>Book a private consultation</ng-template>
+        </mat-step>
+        <mat-step [completed]="true">
+            <ng-template matStepLabel>Download as PDF</ng-template>
+        </mat-step>
+    </mat-horizontal-stepper>
+
+    <div class="main-div">
+        <!--The content below is only a placeholder and can be replaced.-->
+        <div class="app-container">
+            <div class="download-div">
+                <div class="download-div-box">
+                    <br>
+                    <div class="download-title-1">
+                        Download as PDF now
+                    </div>
+                    <br>
+                    <button mat-fab extended color="primary" type="button" value="Convert"
+                        (click)="convertToPDF()">Convert to PDF</button>
+                    <br>
+                    <button mat-raised-button type="button" [routerLink]="['/main', userId]">Back to
+                        Main</button>
+                </div>
+            </div>
+
+            <div class="app-preview" *ngIf="getResumeById$ | async">
+                <app-resumepreview id="contentToConvert"></app-resumepreview>
+            </div>
         </div>
     </div>
-
-    <div *ngIf="getResumeById$ | async">
-        <div class="app-preview">
-            <app-resumepreview id="contentToConvert"></app-resumepreview>
-        </div>
-    </div>
-</div>
+</body>

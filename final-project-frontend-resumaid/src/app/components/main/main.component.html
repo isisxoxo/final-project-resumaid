@@ -1,11 +1,39 @@
-<p>main works!</p>
-<br>
-<a [routerLink]="['/create', id]">Create your resume now!</a>
-<br>
-<br>
-<a [routerLink]="['/view', id]">View past resume drafts</a>
-<br>
-<br>
-<a [routerLink]="['/bookings', id]">View all upcoming consultation bookings</a>
-<br>
-<button (click)="logout()">Logout</button>
+<body>
+    <div class="main-div">
+        <div class="create-div">
+            <button mat-raised-button [routerLink]="['/create', id]" class="custom-button">
+                <div>
+                    <mat-icon class="icon-display" [ngStyle]="{'color':'rgb(221, 155, 173)'}">edit_note</mat-icon>
+                </div>
+                <br>
+                Create new resume
+                <ul>
+                    <li>See your resume build out instantly</li>
+                    <li>Utilise our AI function to craft bullet points</li>
+                    <li>Book a private 1:1 resume consultation slot</li>
+                    <li>Save your resume and Export to PDF</li>
+                </ul>
+            </button>
+        </div>
+        <div class="view-upcoming-div">
+            <div class="view-resumes-div">
+                <button mat-raised-button [routerLink]="['/view', id]">
+                    <div>
+                        <mat-icon class="icon-display" [ngStyle]="{'color':'rgb(221, 155, 173)'}">search</mat-icon>
+                    </div>
+                    <br>
+                    View past resume drafts
+                </button>
+            </div>
+            <div class="upcoming-div">
+                <button mat-raised-button [routerLink]="['/bookings', id]">
+                    <div>
+                        <mat-icon class="icon-display" [ngStyle]="{'color':'rgb(221, 155, 173)'}">event</mat-icon>
+                    </div>
+                    <br>
+                    View all upcoming consultation bookings
+                </button>
+            </div>
+        </div>
+    </div>
+</body>

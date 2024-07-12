@@ -1,3 +1,7 @@
-<h2>Ollama</h2>
-<ul [innerHTML]="response.replaceAll('* ', '\<li>')">
-</ul>
+<div class="ollama-div">
+    <!-- <h4>Improved Points:</h4> -->
+    <div *ngIf="!response" class="loader">
+    </div>
+    <ul [innerHTML]="response.replaceAll('* ', '\<li>')">
+    </ul>
+</div>

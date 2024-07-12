@@ -1,0 +1,64 @@
+body {
+    background-image: url("/assets/Background-image-1.png");
+    background-size: cover;
+    background-repeat: repeat-y;
+}
+.button-div {
+    padding-left: 8vw;
+    padding-right: 8vw;
+}
+.list-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+}
+.table-div {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    margin-bottom: 15vh;
+    padding: 20px;
+    border: 1px solid gray;
+    border-radius: 20px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+table {
+    border-spacing: 20px;
+    width: 100%;
+}
+th {
+    font-size: large;
+}
+tr {
+    font-family: 'Gill Sans', sans-serif;
+    text-align: center;
+}
+h2 {
+    font-family: "Monaco", Courier;
+    color: rgba(0, 0, 0, 0.6);
+}
+a {
+    text-decoration: none;
+}
+i {
+    font-size: small;
+}
+/* unvisited link */
+/* visited link */
+a:link,
+a:visited {
+    color: darkcyan;
+}
+
+/* mouse over link */
+a:hover {
+color: rgb(203, 136, 154);
+}
+
+/* selected link */
+a:active {
+color: gray;
+}
+  

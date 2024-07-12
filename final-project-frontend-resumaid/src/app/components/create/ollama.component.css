@@ -1,0 +1,19 @@
+.ollama-div {
+    margin: 10px;
+}
+ul {
+    font-family: 'Gill Sans', sans-serif;
+}
+.loader {
+    border: 10px solid #e2e0e0; /* Light grey */
+    border-top: 10px solid rgb(246, 181, 198);
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    animation: spin 1.4s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }

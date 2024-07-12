@@ -43,7 +43,7 @@ export class DownloadComponent implements OnInit {
   public convertToPDF() {
     this.data = document.getElementById('contentToConvert')
 
-    html2canvas(this.data, {allowTaint: true, useCORS: true}).then(canvas => {
+    html2canvas(this.data, {allowTaint: true, useCORS: true, scale:4}).then(canvas => {
       var imgWidth = 210;
       var pageHeight = 295;
       var imgHeight = canvas.height * imgWidth / canvas.width;

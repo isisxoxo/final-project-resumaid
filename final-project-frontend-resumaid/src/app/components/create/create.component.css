@@ -1,28 +1,74 @@
+.main-div {
+    padding-left: 5vw;
+    padding-right: 5vw;
+    height: calc(100% - 60px);
+}
+mat-horizontal-stepper {
+    padding-left: 8vw;
+    padding-right: 8vw;
+    height: 60px;
+    background-color: transparent;
+}
+:host ::ng-deep .mat-horizontal-content-container {
+    padding:0 !important;
+}
+::ng-deep .mat-horizontal-stepper-header{
+    pointer-events: none !important;
+}
 .app-container {
     display: flex;
     flex-direction: row;
-    height: 90%;
-}
-
-.app-preview {
-    flex: 0.5;
     height: 100%;
-    padding: 0mm 10mm 10mm 10mm;
-    display: flex;
-    justify-content: center;
+    width: 100%;
+    flex: 1;
 }
-
-.app-form-content {
-    flex: 0.5;
-    height: 100%;
+.build-section {
+    flex: 1;
     display: flex;
     flex-direction: column;
 }
-
-.app-form {
-    padding: 0mm 10mm 10mm 10mm;
-    overflow-y: auto;
+.back-btn {
+    flex: 0;
 }
+.builder-title {
+    flex: 0;
+    display: contents;
+    text-align: center;
+    font-family: "Monaco", Courier;
+    font-size: 2.3vh;
+    color: rgba(0, 0, 0, 0.6);
+}
+.app-form-content {
+    flex: 1;
+    /* flex: 0.5; */
+    /* height: 100%; */
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    overflow-y: auto;
+    margin: 5mm 9mm 5mm 9mm;
+    /* height: calc(100% - 36px - 45px - 17px); */
+}
+.app-preview {
+    flex: 1;
+    /* height: 100%; */
+    padding: 5mm 5mm 5mm 5mm;
+    display: flex;
+    justify-content: center;
+}
+.app-form {
+    padding: 5mm 9mm 5mm 9mm;
+    overflow-y: auto;
+    height: 100%;
+}
+.note {
+    color: rgb(216, 141, 161);
+    font-family: 'Monaco', Courier;
+    font-size: small;
+    padding-top: 5px;
+}
+
+
 
 /* .app-container {
     display: flex;

@@ -1,9 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ConsultationService } from '../../services/consultation.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Booking } from '../../models/booking';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
+
+import { merge, of } from 'rxjs';
+import { startWith, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-consultation',
@@ -17,6 +21,13 @@ export class ConsultationComponent implements OnInit {
   userId!: string
   id!: string
 
+  paginatedBookings: any[] = [];
+  pageSize = 5;
+  currentPage = 0;
+
+  @ViewChild(MatPaginator, { static: true })
+  paginator!: MatPaginator;
+
   constructor(private fb: FormBuilder, private consultationSvc: ConsultationService, 
             private router: Router, private activatedRoute: ActivatedRoute) {
   }
@@ -29,6 +40,7 @@ export class ConsultationComponent implements OnInit {
 
     this.userId = this.activatedRoute.snapshot.params["id"]
     this.id = this.activatedRoute.snapshot.queryParams["q"]
+    
   }
 
   onSubmit() {
@@ -48,8 +60,19 @@ export class ConsultationComponent implements OnInit {
     this.availableBookings$.subscribe(
       data => {
         console.log(">>>>> DATA:", data)
+        this.paginatedBookings = data.slice(0, this.pageSize);
       }
-      )
+    )
+  }
+
+  paginate(event: PageEvent) {
+    this.currentPage = event.pageIndex;
+    const startIndex = this.currentPage * this.pageSize;
+    const endIndex = startIndex + this.pageSize;
+
+    this.availableBookings$.subscribe(bookings => {
+      this.paginatedBookings = bookings.slice(startIndex, endIndex);
+    });
   }
 
   clickBooking(b: Booking) {

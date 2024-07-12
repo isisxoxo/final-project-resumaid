@@ -24,7 +24,8 @@
 }
 h1 {
     font-family: "Monaco", Courier;
-    font-size: 40px;
+    /* font-size: 40px; */
+    font-size: 2.5vw;
     margin-block-start: 0;
     margin-block-end: 0;
     margin-inline-start: 2.7vw;

@@ -1,3 +1,44 @@
+<body>
+    <mat-horizontal-stepper>
+        <mat-step [completed]="true">
+            <ng-template matStepLabel>Build your resume</ng-template>
+        </mat-step>
+        <mat-step [completed]="false">
+            <ng-template matStepLabel>Book a private consultation</ng-template>
+        </mat-step>
+        <mat-step [completed]="false">
+            <ng-template matStepLabel>Download as PDF</ng-template>
+        </mat-step>
+    </mat-horizontal-stepper>
+
+    <div class="main-div">
+        <div class="app-container">
+
+            <div class="build-section">
+                <div class="back-btn">
+                    <button mat-button [routerLink]="['/main', userId]">
+                        <mat-icon>arrow_back</mat-icon>
+                        Back to Main
+                    </button>
+                </div>
+                <div class="builder-title">
+                    <u>Build Your Resume</u>
+                    <div class="note">*Note: Always remember to save your resume drafts</div>
+                </div>
+                <!-- <br> -->
+                <div class="app-form-content">
+                    <div class="app-form">
+                        <app-resumebuilder></app-resumebuilder>
+                    </div>
+                </div>
+            </div>
+            <div class="app-preview">
+                <app-resumepreview></app-resumepreview>
+            </div>
+        </div>
+    </div>
+</body>
+
 <!-- <h3>Build Your Resume:</h3>
 <div class="app-container">
     <div class="app-template">
@@ -12,16 +53,3 @@
         </div>
     </div>
 </div> -->
-
-<h3>Build Your Resume:</h3>
-<button [routerLink]="['/main', userId]">Back to Main</button>
-<div class="app-container">
-    <div class="app-form-content">
-        <div class="app-form">
-            <app-resumebuilder></app-resumebuilder>
-        </div>
-    </div>
-    <div class="app-preview">
-        <app-resumepreview></app-resumepreview>
-    </div>
-</div>
