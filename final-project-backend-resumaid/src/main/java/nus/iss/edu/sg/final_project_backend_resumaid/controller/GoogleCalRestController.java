@@ -12,7 +12,6 @@ import com.google.api.services.calendar.model.Event;
 
 import jakarta.servlet.http.HttpServletRequest;
 import nus.iss.edu.sg.final_project_backend_resumaid.model.Booking;
-import nus.iss.edu.sg.final_project_backend_resumaid.model.Resume;
 import nus.iss.edu.sg.final_project_backend_resumaid.service.GoogleCalService;
 import nus.iss.edu.sg.final_project_backend_resumaid.service.UserService;
 

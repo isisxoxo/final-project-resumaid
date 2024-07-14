@@ -94,3 +94,7 @@ mat-horizontal-stepper {
     font-size: 3.5vh;
     color: rgba(0, 0, 0, 0.6);
 }
+.no-resume-div {
+    text-align: center;
+    padding: 100px;
+}

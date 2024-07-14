@@ -13,7 +13,7 @@ export class BookingsComponent implements OnInit {
 
   getAllBookings$!: Observable<Booking[]>
   userId!: string
-  result!: Booking[]
+  result: Booking[] = [];
 
   deleteResume$!: Observable<boolean>
 

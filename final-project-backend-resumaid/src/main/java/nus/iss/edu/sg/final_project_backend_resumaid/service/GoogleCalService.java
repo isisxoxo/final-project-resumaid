@@ -142,6 +142,7 @@ public class GoogleCalService {
                 // existingEvent.setAttendees(listAttendees); // Add new attendee (customer)
 
                 existingEvent.setColorId("11"); // Change from green to red
+                existingEvent.setDescription("Booking with " + user.get().getEmail()); // Set description to verify user
 
                 Event updatedEvent = calendar.events().update(CALENDAR_ID, id, existingEvent).execute();
 

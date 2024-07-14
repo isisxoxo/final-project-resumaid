@@ -1,28 +1,65 @@
-<h2>Login</h2>
-<div>
-    <form method="POST" [formGroup]="form" (ngSubmit)="onSubmit()">
-        <div>
-            Email: <input type="text" formControlName="email">
-            <!-- VALIDATIONS -->
-            <div *ngIf="form.get('email')?.hasError('required')">
-                Email is required.
+<body>
+    <div class="login-div">
+        <div class="login-form-div">
+            <div class="title">
+                <h2>Login</h2>
             </div>
-            <div *ngIf="form.get('email')?.hasError('email')">
-                Enter email format.
+            <div>
+                <form class="login-form" method="POST" [formGroup]="form" (ngSubmit)="onSubmit()">
+                    <mat-form-field>
+                        <mat-label>Email</mat-label>
+                        <input matInput type="text" formControlName="email">
+                        <!-- VALIDATIONS -->
+                        <mat-error *ngIf="form.get('email')?.hasError('required')">
+                            Email is required.
+                        </mat-error>
+                        <mat-error *ngIf="form.get('email')?.hasError('email')">
+                            Enter email format.
+                        </mat-error>
+                    </mat-form-field>
+
+
+                    <mat-form-field>
+                        <mat-label>Password</mat-label>
+                        <input matInput name="password" formControlName="password"
+                            [type]="passwordVisible ? 'text' : 'password'">
+                        <button mat-icon-button matSuffix (click)="onClickRevealPassword($event)"
+                            [attr.aria-label]="'Hide password'" [attr.aria-pressed]="!passwordVisible">
+                            <mat-icon>{{passwordVisible ? 'visibility' : 'visibility_off'}}</mat-icon>
+                        </button>
+                        <!-- VALIDATIONS -->
+                        <mat-error *ngIf="form.get('password')?.hasError('required')">
+                            Password is required.
+                        </mat-error>
+                    </mat-form-field>
+
+                    <br>
+
+                    <div>
+                        <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">Login</button>
+                    </div>
+                    <br>
+                    <div class="error-div" *ngIf="error">{{errorMsg}}</div>
+                </form>
+                <br>
             </div>
         </div>
-        <div>
-            Password: <input type="password" formControlName="password">
-            <!-- VALIDATIONS -->
-            <div *ngIf="form.get('password')?.hasError('required')">
-                Password is required.
-            </div>
-        </div>
-        <br>
-        <div>
-            <button type="submit" [disabled]="form.invalid">Login</button>
-        </div>
-        <div *ngIf="error">{{errorMsg}}</div>
-    </form>
-    <br>
+    </div>
+</body>
+
+<!-- <div>
+    Email: <input type="text" formControlName="email">
+    <div *ngIf="form.get('email')?.hasError('required')">
+        Email is required.
+    </div>
+    <div *ngIf="form.get('email')?.hasError('email')">
+        Enter email format.
+    </div>
 </div>
+
+<div>
+    Password: <input type="password" formControlName="password">
+    <div *ngIf="form.get('password')?.hasError('required')">
+        Password is required.
+    </div>
+</div> -->

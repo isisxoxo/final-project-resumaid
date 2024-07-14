@@ -37,3 +37,16 @@ h1 {
     width: 100%;
     height: auto;
 }
+.carousel-slide {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    margin: 5vh;
+}
+.carousel-inner {
+    font-family: 'Gill Sans', sans-serif;
+}
+.btn-class{
+    width: 40px!important;
+    min-width: unset!important;
+}

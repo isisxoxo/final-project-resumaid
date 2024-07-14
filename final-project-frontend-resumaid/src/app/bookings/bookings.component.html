@@ -7,7 +7,7 @@
     </div>
     <div class="list-div">
         <h2>All Your Upcoming Consultations:</h2>
-        <div class="table-div">
+        <div class="table-div" *ngIf="result.length > 0; else elseBlock">
             <table>
                 <thead>
                     <th>Date</th>
@@ -28,5 +28,10 @@
                 </tr>
             </table>
         </div>
+        <ng-template #elseBlock>
+            No consultations booked yet
+            <br><br>
+            <button mat-raised-button [routerLink]="['/consult', userId]">Make a Booking Now</button>
+        </ng-template>
     </div>
 </body>

@@ -15,7 +15,7 @@
         </mat-step>
     </mat-horizontal-stepper>
 
-    <div class="main-div">
+    <div class="main-div" *ngIf="id && id!='undefined'; else elseBlock">
         <!--The content below is only a placeholder and can be replaced.-->
         <div class="app-container">
             <div class="download-div">
@@ -38,4 +38,11 @@
             </div>
         </div>
     </div>
+    <ng-template #elseBlock>
+        <div class="no-resume-div">
+            No resume to download
+            <br><br>
+            <button mat-raised-button [routerLink]="['/main', userId]">Go Back to Main</button>
+        </div>
+    </ng-template>
 </body>

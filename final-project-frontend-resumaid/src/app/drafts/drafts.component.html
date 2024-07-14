@@ -7,16 +7,21 @@
     </div>
     <div class="list-div">
         <h2>All Your Existing Resumes:</h2>
-        <div class="table-container">
+        <div *ngIf="result.length > 0; else elseBlock" class="table-container">
+
             <div class="table-div">
-                <table>
+
+                <!-- NG MAT -->
+                <table matSort (matSortChange)="sortData($event)">
                     <thead>
-                        <th class="th-title">Resume Title</th>
-                        <th>Last Update Time</th>
-                        <th>Creation Time</th>
+                        <th mat-sort-header="title">Resume Title</th>
+                        <th mat-sort-header="lastUpdateTime">Last Update Time</th>
+                        <th mat-sort-header="creationTime">Creation Time</th>
                         <th>Action</th>
                     </thead>
-                    <tr *ngFor="let r of result; let i = index">
+
+                    @for (r of sortedData; track r) {
+                    <tr>
                         <td>
                             <a matTooltip="Click to open resume" matTooltipPosition="right"
                                 [routerLink]="['/create', userId]" [queryParams]="{ q: r.id }">{{r.title}}</a>
@@ -32,8 +37,59 @@
                                 color="warn" (click)="deleteResumeById(r.id, r.title)">Delete</button>
                         </td>
                     </tr>
+                    }
                 </table>
             </div>
         </div>
+        <ng-template #elseBlock>
+            No resumes created yet
+            <br><br>
+            <button mat-raised-button [routerLink]="['/create', userId]">Create One Now</button>
+        </ng-template>
     </div>
 </body>
+
+<!-- ARCHIVES -->
+
+<!-- CSS -->
+<!-- <table>
+<thead>
+    <th class="th-title">Resume Title</th>
+    <th>Last Update Time</th>
+    <th>Creation Time</th>
+    <th>Action</th>
+</thead>
+<tr *ngFor="let r of result; let i = index">
+    <td>
+        <a matTooltip="Click to open resume" matTooltipPosition="right"
+            [routerLink]="['/create', userId]" [queryParams]="{ q: r.id }">{{r.title}}</a>
+    </td>
+    <td class="td-center">
+        <i>{{r.lastUpdateTime | date:'dd MMM yy, hh:mmaa'}}</i>
+    </td>
+    <td class="td-center">
+        <i>{{r.creationTime | date:'dd MMM yy, hh:mmaa'}}</i>
+    </td>
+    <td class="td-center">
+        <button matTooltip="Delete resume" matTooltipPosition="right" mat-stroked-button
+            color="warn" (click)="deleteResumeById(r.id, r.title)">Delete</button>
+    </td>
+</tr>
+</table> -->
+
+<!-- <tr *ngFor="let r of result; let i = index; track r">
+    <td>
+        <a matTooltip="Click to open resume" matTooltipPosition="right"
+            [routerLink]="['/create', userId]" [queryParams]="{ q: r.id }">{{r.title}}</a>
+    </td>
+    <td class="td-center">
+        <i>{{r.lastUpdateTime | date:'dd MMM yy, hh:mmaa'}}</i>
+    </td>
+    <td class="td-center">
+        <i>{{r.creationTime | date:'dd MMM yy, hh:mmaa'}}</i>
+    </td>
+    <td class="td-center">
+        <button matTooltip="Delete resume" matTooltipPosition="right" mat-stroked-button
+            color="warn" (click)="deleteResumeById(r.id, r.title)">Delete</button>
+    </td>
+</tr> -->

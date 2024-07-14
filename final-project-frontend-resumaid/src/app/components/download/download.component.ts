@@ -14,7 +14,7 @@ import { ImageStore } from '../../services/image.store';
   styleUrl: './download.component.css'
 })
 export class DownloadComponent implements OnInit {
-  id!: string
+  id: string = 'undefined'
   userId!: string
   data!: any
   resume!: resume

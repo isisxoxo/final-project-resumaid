@@ -6,7 +6,7 @@
             </h1>
             <br>
             <span>
-                Best solutions for resume creation
+                Only the best solutions for resume creation
             </span>
             <br>
             <br>
@@ -18,5 +18,27 @@
     </div>
     <div class="home-img">
         <img src="/assets/Document-Writing cropped.png" width=100% height="100%" class="home-graphic">
+    </div>
+</div>
+
+<div class="carousel-slide" data-ride="carousel">
+    <div>
+        <mat-icon [ngStyle]="{'color':'rgb(221, 155, 173)'}">star</mat-icon>
+        <mat-icon [ngStyle]="{'color':'rgb(221, 155, 173)'}">star</mat-icon>
+        <mat-icon [ngStyle]="{'color':'rgb(221, 155, 173)'}">star</mat-icon>
+        <mat-icon [ngStyle]="{'color':'rgb(221, 155, 173)'}">star</mat-icon>
+        <mat-icon [ngStyle]="{'color':'rgb(221, 155, 173)'}">star</mat-icon>
+    </div>
+    <div class="carousel-inner" role="listbox">
+        "{{getSlide()}}"
+    </div>
+    <br>
+    <div>
+        <button mat-button class="btn-class" (click)='getPrev()'>
+            <mat-icon>arrow_back</mat-icon>
+        </button>
+        <button mat-button class="btn-class" (click)='getNext()'>
+            <mat-icon>arrow_forward</mat-icon>
+        </button>
     </div>
 </div>

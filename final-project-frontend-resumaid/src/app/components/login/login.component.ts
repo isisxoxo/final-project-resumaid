@@ -18,6 +18,7 @@ export class LoginComponent implements OnInit {
   loginUser$!: Observable<HttpResponse<Object>>
   error: boolean = false
   errorMsg!: string
+  passwordVisible = false //Cannot see pw at first
   
   constructor(private fb: FormBuilder, private userSvc: UserService, private jwtSvc: JwtService, private router: Router) {
   }
@@ -40,6 +41,14 @@ export class LoginComponent implements OnInit {
       password: this.fb.control('', [Validators.required])
     })
   }
+
+
+  onClickRevealPassword(event: any) {
+    event.preventDefault(); // Prevent form submission and revealing the password when enter button is pressed
+    if (event.pointerType) {
+      this.passwordVisible = !this.passwordVisible;
+    }
+  } 
 
   onSubmit() {
 
