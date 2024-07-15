@@ -55,8 +55,7 @@ WORKDIR /app
 
 # Copying file from builder instead of locally
 COPY --from=javabuild /final-project-backend-resumaid/target/final-project-backend-resumaid-0.0.1-SNAPSHOT.jar .
-# COPY --from=javabuild /final-project-backend-resumaid/src/main/resources/resumaid-googlecal-credentials.json /data/resumaid-googlecal-credentials.json
-
+COPY --from=javabuild /final-project-backend-resumaid/src/main/resources/resumaid-googlecal-credentials.json /app/src/main/resources/resumaid-googlecal-credentials.json
 
 # Run
 ENV S3_ACCESS_KEY=
@@ -65,7 +64,6 @@ ENV SECURITY_JWT_SECRETKEY=
 ENV OLLAMA_HOST=
 ENV SPRING_MAIL_PASSWORD=
 ENV STRIPE_API_KEY=
-ENV RAILWAY_VOLUME_MOUNT_PATH=
 
 
 ENV PORT=8080

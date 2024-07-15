@@ -1,16 +1,10 @@
 package nus.iss.edu.sg.final_project_backend_resumaid.service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.RequestEntity;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import com.google.api.client.util.DateTime;
 import com.google.api.services.calendar.Calendar;
@@ -28,64 +22,14 @@ import nus.iss.edu.sg.final_project_backend_resumaid.repository.UserRepo;
 @Service
 public class GoogleCalService {
 
-    /* NEW METHOD: API KEY */
-    // @Value("${googlecal.api.key}")
-    // private String apiKey;
-
-    // private String CALENDAR_ID = "resumaidtfip@gmail.com";
-
-    // private String GOOGLE_CAL_URL =
-    // "https://www.googleapis.com/calendar/v3/calendars/" + CALENDAR_ID;
-
-    // // GET ALL AVAILABLE TIME SLOTS
-    // public List<Event> getFutureEvents(String startDate, String endDate) throws
-    // GoogleCalException {
-
-    // System.out.println("IN GET FUTURE EVENTS");
-    // Events events;
-
-    // try {
-    // DateTime fromDateTime = DateTime.parseRfc3339(startDate);
-    // DateTime toDateTime = DateTime.parseRfc3339(endDate);
-
-    // String url = UriComponentsBuilder
-    // .fromUriString(GOOGLE_CAL_URL)
-    // .queryParam("key", apiKey)
-    // .toUriString();
-
-    // // BUILD REQUEST
-    // RequestEntity<Void> req = RequestEntity.get(url).build();
-
-    // // GET RESPONSE
-    // RestTemplate template = new RestTemplate();
-    // ResponseEntity<Calendar> resp = template.exchange(req, Calendar.class);
-    // Calendar calendar = resp.getBody();
-
-    // events = calendar.events().list(CALENDAR_ID)
-    // .setMaxResults(20)
-    // .setTimeMin(fromDateTime)
-    // .setTimeMax(toDateTime)
-    // .setOrderBy("startTime")
-    // .setSingleEvents(true)
-    // .execute();
-    // } catch (Exception e) {
-    // throw new GoogleCalException("Cannot find Google Calendar" + " " +
-    // e.getMessage());
-    // }
-
-    // List<Event> items = events.getItems();
-
-    // return items;
-    // }
-
     @Autowired
     private Calendar calendar;
 
     @Autowired
     private UserRepo userRepo;
 
-    // @Autowired
-    // private GoogleCalRepo googleCalRepo;
+    @Autowired
+    private GoogleCalRepo googleCalRepo;
 
     private String CALENDAR_ID = "resumaidtfip@gmail.com";
 
@@ -154,8 +98,7 @@ public class GoogleCalService {
                 newBooking.setEndtime(updatedEvent.getEnd().getDateTime());
                 newBooking.setMeetinglink(updatedEvent.getHangoutLink());
 
-                setBookingResult = userRepo.saveBooking(newBooking);
-                // setBookingResult = googleCalRepo.saveBooking(newBooking);
+                setBookingResult = googleCalRepo.saveBooking(newBooking);
 
             } catch (Exception e) {
                 // throw new GoogleCalException("Cannot update Google Calendar");
@@ -171,7 +114,57 @@ public class GoogleCalService {
 
     // GET BOOKINGS FOR USER
     public List<Booking> getBookingsByUserid(String userid) {
-        return userRepo.getBookingsByUserid(userid);
-        // return googleCalRepo.getBookingsByUserid(userid);
+        return googleCalRepo.getBookingsByUserid(userid);
     }
+
+    /* NEW METHOD: API KEY */
+    // @Value("${googlecal.api.key}")
+    // private String apiKey;
+
+    // private String CALENDAR_ID = "resumaidtfip@gmail.com";
+
+    // private String GOOGLE_CAL_URL =
+    // "https://www.googleapis.com/calendar/v3/calendars/" + CALENDAR_ID;
+
+    // // GET ALL AVAILABLE TIME SLOTS
+    // public List<Event> getFutureEvents(String startDate, String endDate) throws
+    // GoogleCalException {
+
+    // System.out.println("IN GET FUTURE EVENTS");
+    // Events events;
+
+    // try {
+    // DateTime fromDateTime = DateTime.parseRfc3339(startDate);
+    // DateTime toDateTime = DateTime.parseRfc3339(endDate);
+
+    // String url = UriComponentsBuilder
+    // .fromUriString(GOOGLE_CAL_URL)
+    // .queryParam("key", apiKey)
+    // .toUriString();
+
+    // // BUILD REQUEST
+    // RequestEntity<Void> req = RequestEntity.get(url).build();
+
+    // // GET RESPONSE
+    // RestTemplate template = new RestTemplate();
+    // ResponseEntity<Calendar> resp = template.exchange(req, Calendar.class);
+    // Calendar calendar = resp.getBody();
+
+    // events = calendar.events().list(CALENDAR_ID)
+    // .setMaxResults(20)
+    // .setTimeMin(fromDateTime)
+    // .setTimeMax(toDateTime)
+    // .setOrderBy("startTime")
+    // .setSingleEvents(true)
+    // .execute();
+    // } catch (Exception e) {
+    // throw new GoogleCalException("Cannot find Google Calendar" + " " +
+    // e.getMessage());
+    // }
+
+    // List<Event> items = events.getItems();
+
+    // return items;
+    // }
+
 }

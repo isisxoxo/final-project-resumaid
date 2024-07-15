@@ -9,7 +9,7 @@ export class HomeComponent {
 
 
   slides: string [] = [
-    "Since I've started using ResumAId, I have never gotten a job application rejection anymore", 
+    "Ever since I've started using ResumAId, I have not received a single rejection letter",
     "ResumAId consultants are the most professional and give the best advice!",
     "ResumAId is my go-to site when I want to update my resume"
   ]
