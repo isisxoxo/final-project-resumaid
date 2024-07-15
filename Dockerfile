@@ -9,6 +9,9 @@ WORKDIR /final-project-frontend-resumaid
 # RUN npm i -g @angular/cli@17.3.8
 RUN npm i -g @angular/cli
 
+RUN npm install --save sweetalert
+RUN npm install html2canvas
+
 COPY final-project-frontend-resumaid/angular.json .
 COPY final-project-frontend-resumaid/package*.json .
 COPY final-project-frontend-resumaid/tsconfig*.json .
@@ -52,7 +55,7 @@ WORKDIR /app
 
 # Copying file from builder instead of locally
 COPY --from=javabuild /final-project-backend-resumaid/target/final-project-backend-resumaid-0.0.1-SNAPSHOT.jar .
-COPY --from=javabuild /final-project-backend-resumaid/src/main/resources/resumaid-googlecal-credentials.json /app/src/main/resources/resumaid-googlecal-credentials.json
+# COPY --from=javabuild /final-project-backend-resumaid/src/main/resources/resumaid-googlecal-credentials.json /data/resumaid-googlecal-credentials.json
 
 
 # Run
@@ -62,7 +65,7 @@ ENV SECURITY_JWT_SECRETKEY=
 ENV OLLAMA_HOST=
 ENV SPRING_MAIL_PASSWORD=
 ENV STRIPE_API_KEY=
-ENV GOOGLE_CREDENTIALS_FILEPATH=
+ENV RAILWAY_VOLUME_MOUNT_PATH=
 
 
 ENV PORT=8080
@@ -70,5 +73,3 @@ ENV PORT=8080
 EXPOSE ${PORT}
 
 ENTRYPOINT SERVER_PORT=${PORT} java -jar final-project-backend-resumaid-0.0.1-SNAPSHOT.jar
-# If want to rename to weather.jar
-# ENTRYPOINT SERVER_PORT=${PORT} java -jar weather.jar

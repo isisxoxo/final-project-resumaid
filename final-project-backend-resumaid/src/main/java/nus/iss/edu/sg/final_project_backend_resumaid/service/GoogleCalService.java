@@ -84,8 +84,8 @@ public class GoogleCalService {
     @Autowired
     private UserRepo userRepo;
 
-    @Autowired
-    private GoogleCalRepo googleCalRepo;
+    // @Autowired
+    // private GoogleCalRepo googleCalRepo;
 
     private String CALENDAR_ID = "resumaidtfip@gmail.com";
 
@@ -154,7 +154,8 @@ public class GoogleCalService {
                 newBooking.setEndtime(updatedEvent.getEnd().getDateTime());
                 newBooking.setMeetinglink(updatedEvent.getHangoutLink());
 
-                setBookingResult = googleCalRepo.saveBooking(newBooking);
+                setBookingResult = userRepo.saveBooking(newBooking);
+                // setBookingResult = googleCalRepo.saveBooking(newBooking);
 
             } catch (Exception e) {
                 // throw new GoogleCalException("Cannot update Google Calendar");
@@ -170,6 +171,7 @@ public class GoogleCalService {
 
     // GET BOOKINGS FOR USER
     public List<Booking> getBookingsByUserid(String userid) {
-        return googleCalRepo.getBookingsByUserid(userid);
+        return userRepo.getBookingsByUserid(userid);
+        // return googleCalRepo.getBookingsByUserid(userid);
     }
 }

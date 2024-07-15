@@ -23,6 +23,6 @@ create table bookings (
         references users(id)
 );
 
-grant all privileges on resumaid.* to 'fred'@'localhost';
+-- grant all privileges on resumaid.* to 'fred'@'localhost';
 
-flush privileges;
+-- flush privileges;
