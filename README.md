@@ -59,11 +59,13 @@ ResumAId takes resume writing to a whole new level. It elevates the resume-writi
   - RESTful API
   - JWT for user authentication and authorisation
   - Email for registration auto-confirmation
-  - Ollama4j for AI model service
+  - Ollama4j ([Link](https://github.com/amithkoujalgi/ollama4j))for AI model service
   - Digital Ocean for storage of images and droplet (VM) to run Ollama model
   - Stripe integration for payment
   - Google Calendar integration for booking and scheduling
+  - Html2canvas to download as PDF ([Link](https://www.npmjs.com/package/html2canvas/v/1.4.1))
   - Angular Material as UI component framework
+  - Sweetalert for alerts and confirmations ([Link](https://www.npmjs.com/package/sweetalert))
   - Angular PWA ([Link](https://www.npmjs.com/package/@angular/pwa))
   - Angular Service worker ([Link](https://www.npmjs.com/package/@angular/service-worker))
   - Docker for containerization
