@@ -57,7 +57,7 @@ ResumAId takes resume writing to a whole new level. It elevates the resume-writi
   - MongoDB for resumes
 - Technologies:
   - RESTful API
-  - JWT for user authentication and authorisation
+  - JWT for user authentication and authorisation (expires within 1 day)
   - Email for registration auto-confirmation
   - Ollama4j ([Link](https://github.com/amithkoujalgi/ollama4j))for AI model service
   - Digital Ocean for storage of images and droplet (VM) to run Ollama model
