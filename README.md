@@ -35,43 +35,43 @@ ResumAId takes resume writing to a whole new level. It elevates the resume-writi
 
    <img src="final-project-backend-resumaid/src/main/resources/static/assets/Landing-page.png" width="700px">
 
-<hr>
+<!-- <hr> -->
 
 2. Upon successful registration/login, users will be direct to the home page of ResumAId.
 
    <img src="final-project-backend-resumaid/src/main/resources/static/assets/Home-page.png" width="700px">
 
-<hr>
+<!-- <hr> -->
 
 3. Users can create their own resume and preview them on the right using ResumAId's in-built template.
 
    <img src="final-project-backend-resumaid/src/main/resources/static/assets/Resume-builder.png" width="700px">
 
-<hr>
+<!-- <hr> -->
 
 4. For an extra boost, use our AI function to improve your resume pointers.
 
    <img src="final-project-backend-resumaid/src/main/resources/static/assets/AI-feature.png" width="700px">
 
-<hr>
+<!-- <hr> -->
 
 5. Book a timeslot with a professional consultant if you prefer a more personalised service. And make payment to confirm your session.
 
    <img src="final-project-backend-resumaid/src/main/resources/static/assets/Consultant-booking.png" width="700px">
 
-<hr>
+<!-- <hr> -->
 
 6. Download and export your resume as a PDF for upload to job applications.
 
    <img src="final-project-backend-resumaid/src/main/resources/static/assets/Export.png" width="700px">
 
-<hr>
+<!-- <hr> -->
 
 7. View and manage all of your existing resume drafts.
 
    <img src="final-project-backend-resumaid/src/main/resources/static/assets/Existing-resumes.png" width="700px">
 
-<hr>
+<!-- <hr> -->
 
 8. View all of your upcoming consultations and get directed to their respective Google Meet links.
 
