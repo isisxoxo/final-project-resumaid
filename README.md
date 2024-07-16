@@ -37,7 +37,7 @@ ResumAId takes resume writing to a whole new level. It elevates the resume-writi
 
 <!-- <hr> -->
 
-2. Upon successful registration/login, users will be direct to the home page of ResumAId.
+2. Upon successful registration/login, users will be directed to the home page of ResumAId.
 
    <img src="final-project-backend-resumaid/src/main/resources/static/assets/Home-page.png" width="700px">
 
