@@ -105,29 +105,29 @@
                         <!-- ROW 1 -->
                         <div class="edu-row-1">
                             <mat-form-field class="edu-info-input">
-                                <mat-label>Edu Name</mat-label>
+                                <mat-label>School Name</mat-label>
                                 <input matInput type="text" formControlName="eName">
                             </mat-form-field>
                             <mat-form-field class="edu-info-input">
-                                <mat-label>Edu Country</mat-label>
+                                <mat-label>Country</mat-label>
                                 <input matInput type="text" formControlName="eCountry">
                             </mat-form-field>
                             <mat-form-field class="edu-info-cert">
-                                <mat-label>Edu Certification</mat-label>
+                                <mat-label>Certification</mat-label>
                                 <input matInput type="text" formControlName="eCert">
                             </mat-form-field>
                         </div>
                         <!-- ROW 2 -->
                         <div class="edu-row-2">
                             <mat-form-field class="edu-info-input">
-                                <mat-label>Edu From</mat-label>
+                                <mat-label>Start Date</mat-label>
                                 <input matInput [matDatepicker]="pickereFrom" [defaultValue]="" formControlName="eFrom">
                                 <mat-hint>DD/MM/YYYY</mat-hint>
                                 <mat-datepicker-toggle matIconSuffix [for]="pickereFrom"></mat-datepicker-toggle>
                                 <mat-datepicker #pickereFrom></mat-datepicker>
                             </mat-form-field>
                             <mat-form-field class="edu-info-input">
-                                <mat-label>Edu To</mat-label>
+                                <mat-label>End Date</mat-label>
                                 <input matInput [matDatepicker]="pickereTo" [defaultValue]="" formControlName="eTo">
                                 <mat-hint>DD/MM/YYYY</mat-hint>
                                 <mat-datepicker-toggle matIconSuffix [for]="pickereTo"></mat-datepicker-toggle>
@@ -144,7 +144,7 @@
                         <br>
                         <!-- ROW 3 -->
                         <mat-form-field>
-                            <mat-label>Edu Description</mat-label>
+                            <mat-label>Education Description</mat-label>
                             <textarea matInput class="resume-textarea" formControlName="ePoints"></textarea>
                         </mat-form-field>
                         <!-- ROW 4 -->
@@ -211,7 +211,7 @@
                                 <input matInput type="text" formControlName="wName">
                             </mat-form-field>
                             <mat-form-field class="work-info-input">
-                                <mat-label>Work Country</mat-label>
+                                <mat-label>Country</mat-label>
                                 <input matInput type="text" formControlName="wCountry">
                             </mat-form-field>
                             <mat-form-field class="work-info-role">
@@ -222,14 +222,14 @@
                         <!-- ROW 2 -->
                         <div class="work-row-2">
                             <mat-form-field class="work-info-input">
-                                <mat-label>Work From</mat-label>
+                                <mat-label>Start Date</mat-label>
                                 <input matInput [matDatepicker]="pickerwFrom" [defaultValue]="" formControlName="wFrom">
                                 <mat-hint>DD/MM/YYYY</mat-hint>
                                 <mat-datepicker-toggle matIconSuffix [for]="pickerwFrom"></mat-datepicker-toggle>
                                 <mat-datepicker #pickerwFrom></mat-datepicker>
                             </mat-form-field>
                             <mat-form-field class="work-info-input">
-                                <mat-label>Work To</mat-label>
+                                <mat-label>End Date</mat-label>
                                 <input matInput [matDatepicker]="pickerwTo" [defaultValue]="" formControlName="wTo">
                                 <mat-hint>DD/MM/YYYY</mat-hint>
                                 <mat-datepicker-toggle matIconSuffix [for]="pickerwTo"></mat-datepicker-toggle>
@@ -322,14 +322,14 @@
                         <!-- ROW 2 -->
                         <div class="cca-row-2">
                             <mat-form-field class="cca-info-input">
-                                <mat-label>Activity From</mat-label>
+                                <mat-label>Start Date</mat-label>
                                 <input matInput [matDatepicker]="pickercFrom" [defaultValue]="" formControlName="cFrom">
                                 <mat-hint>DD/MM/YYYY</mat-hint>
                                 <mat-datepicker-toggle matIconSuffix [for]="pickercFrom"></mat-datepicker-toggle>
                                 <mat-datepicker #pickercFrom></mat-datepicker>
                             </mat-form-field>
                             <mat-form-field class="cca-info-input">
-                                <mat-label>Activity To</mat-label>
+                                <mat-label>End Date</mat-label>
                                 <input matInput [matDatepicker]="pickercTo" [defaultValue]="" formControlName="cTo">
                                 <mat-hint>DD/MM/YYYY</mat-hint>
                                 <mat-datepicker-toggle matIconSuffix [for]="pickercTo"></mat-datepicker-toggle>
