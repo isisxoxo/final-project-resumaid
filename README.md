@@ -61,7 +61,7 @@ ResumAId takes resume writing to a whole new level. It elevates the resume-writi
   - Email for registration auto-confirmation
   - Ollama4j ([Link](https://github.com/amithkoujalgi/ollama4j))for AI model service
   - Digital Ocean for storage of images and droplet (VM) to run Ollama model
-  - Stripe integration for payment
+  - Stripe integration for payment (test key)
   - Google Calendar integration for booking and scheduling
   - Html2canvas to download as PDF ([Link](https://www.npmjs.com/package/html2canvas/v/1.4.1))
   - Angular Material as UI component framework
