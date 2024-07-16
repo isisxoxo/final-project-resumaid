@@ -5,6 +5,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.TimeZone;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -33,6 +34,7 @@ public class GoogleCalRepo implements Queries {
         Timestamp endTimestamp = new Timestamp(endTime.getValue());
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        sdf.setTimeZone(TimeZone.getTimeZone("Asia/Singapore"));
 
         Integer insertCount = jdbcTemplate.update(INSERT_BOOKING, newBooking.getId(), newBooking.getUserid(),
                 sdf.format(startTimestamp), sdf.format(endTimestamp), newBooking.getMeetinglink());

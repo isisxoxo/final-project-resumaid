@@ -16,10 +16,10 @@
                 </thead>
                 <tr *ngFor="let r of result; let i = index">
                     <td>
-                        {{r.starttime.value | date:'dd MMM yyyy'}}
+                        {{r.starttime.value | date:'dd MMM yyyy' : '+0800'}}
                     </td>
                     <td>
-                        {{r.starttime.value | date:'hh:mmaa'}} - {{r.endtime.value | date:'shortTime'}} SGT
+                        {{r.starttime.value | date:'hh:mmaa' : '+0800'}} - {{r.endtime.value | date:'shortTime' : '+0800'}} SGT
                     </td>
                     <td>
                         <a [matTooltip]="r.meetinglink" matTooltipPosition="right" [href]="r.meetinglink">Meeting
