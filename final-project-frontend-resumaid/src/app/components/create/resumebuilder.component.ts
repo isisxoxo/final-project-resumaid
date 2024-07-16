@@ -23,7 +23,7 @@ export class ResumebuilderComponent implements OnInit, OnDestroy {
 
   resumeForm!: FormGroup
   fileName: string = ''
-  previewUrl!: string | ArrayBuffer | null
+  previewUrl!: string
   educationArray!: FormArray
   workArray!: FormArray
   ccaArray!: FormArray
@@ -88,6 +88,8 @@ export class ResumebuilderComponent implements OnInit, OnDestroy {
 
         next: r => {
 
+          this.previewUrl = r.url
+          
           this.resumeForm.patchValue({
             title: r.title,
             fullname: r.fullName,
@@ -285,6 +287,8 @@ export class ResumebuilderComponent implements OnInit, OnDestroy {
     const fileSourceValue = this.resumeForm.get('fileSource')?.value;
     if (fileSourceValue != null && fileSourceValue.size > 0 && fileSourceValue != undefined) {
       formData.append('mypic', fileSourceValue);
+    } else {
+      formData.append('imageUrl', this.previewUrl);
     }
 
     console.log(this.resumeForm.get('title')?.value)

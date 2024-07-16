@@ -56,6 +56,7 @@ public class ResumeRestController {
             @RequestPart String ccaJson,
             @RequestPart(required = false) String additional,
             @RequestPart(required = false) MultipartFile mypic,
+            @RequestPart(required = false) String imageUrl,
             HttpServletRequest request) throws JsonMappingException, JsonProcessingException {
 
         System.out.println("title " + title);
@@ -64,14 +65,10 @@ public class ResumeRestController {
         System.out.println("email " + email);
         System.out.println("mypic " + mypic);
         System.out.println("educationJson " + educationJson);
-        // [{"eName":"NUS","eCountry":"Singapore","eCert":"BAC","eFrom":"2024-06-12","eCurrent":false,
-        // "eTo":"2024-06-20","ePoints":"IloveNUS\nSpecialise in BA"}]
         System.out.println("workJson " + workJson);
-        // [{"wName":"Deutsche
-        // Bank","wCountry":"Singapore","wRole":"Trainee","wFrom":"2024-06-06","wCurrent":true,"wPoints":"IBF"}]
         System.out.println("ccaJson " + ccaJson);
-        // [{"cName":"NIL","cCountry":"Singapore","cTitle":"NIL","cFrom":"2024-06-13","cCurrent":false,"cTo":"","cPoints":"NIL"}]
         System.out.println("additional " + additional);
+        System.out.println("imageUrl " + imageUrl);
 
         ObjectMapper objectMapper = new ObjectMapper();
 
@@ -89,8 +86,14 @@ public class ResumeRestController {
         JsonObject payload;
 
         try {
-            String id = resumeService.saveNewResume(title, userId, fullName, phone, email, education, work, cca,
-                    additional, mypic);
+            String id;
+            if (imageUrl != null) {
+                id = resumeService.saveNewResumeImage(title, userId, fullName, phone, email, education, work, cca,
+                        additional, imageUrl);
+            } else {
+                id = resumeService.saveNewResume(title, userId, fullName, phone, email, education, work, cca,
+                        additional, mypic);
+            }
             payload = Json.createObjectBuilder().add("id", id).build();
             return ResponseEntity.status(201).header(HttpHeaders.AUTHORIZATION, "Bearer " + jwt)
                     .body(payload.toString());

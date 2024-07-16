@@ -42,6 +42,19 @@ public class ResumeService {
         return id;
     }
 
+    // C
+    public String saveNewResumeImage(String title, String userId, String fullName, String phone, String email,
+            List<Education> education, List<Work> work, List<Cca> cca, String additional, String imageUrl)
+            throws IOException {
+
+        System.out.println("FILE: " + imageUrl);
+        System.out.println("USERID: " + userId);
+
+        String id = resumeRepo.saveNewResume(title, userId, fullName, phone, email, education, work, cca, additional,
+                imageUrl);
+        return id;
+    }
+
     // R
     public Resume getResumeUserById(String id, String userId) {
         return resumeRepo.getResumeUserById(id, userId);
