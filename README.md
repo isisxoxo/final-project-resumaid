@@ -33,6 +33,8 @@ ResumAId takes resume writing to a whole new level. It elevates the resume-writi
 
 1.
 
+<img src="final-project-backend-resumaid/src/main/resources/static/assets/Landing-page.png">
+
 ## Specifications
 
 - Languages:
@@ -51,8 +53,8 @@ ResumAId takes resume writing to a whole new level. It elevates the resume-writi
   - RESTful API
   - JWT for user authentication and authorisation (expires within 1 day)
   - Email for registration auto-confirmation
-  - Ollama4j ([Link](https://github.com/amithkoujalgi/ollama4j))for AI model service
-  - Digital Ocean for storage of images and droplet (VM) to run Ollama model
+  - Ollama4j ([Link](https://github.com/amithkoujalgi/ollama4j)) for AI model service
+  - Digital Ocean S3 for storage of images and droplet (VM) to run Ollama model
   - Stripe integration for payment (test key)
   - Google Calendar integration for booking and scheduling
   - Html2canvas to download as PDF ([Link](https://www.npmjs.com/package/html2canvas/v/1.4.1))
