@@ -27,19 +27,51 @@ ResumAId takes resume writing to a whole new level. It elevates the resume-writi
 
 ## Main Features
 
-hello
+- 📄 Resume Writing:
+  - Create your own resume and see it come to live instantly with our in-built template
+  - View and edit all existing resume drafts, and save them as existing or new copies.
+  - Use AI to enhance your resume pointers
+  - Download and export your resumes as PDF
+- 🗣️ Consultations:
+  - Book 1:1 appointments with our resume consultants
+  - Make secure payments with Stripe
+  - View all upcoming consultations and link to their Google Meet links directly
 
 ## Usage
 
-hello
+1.
 
-## Technologies
+## Specifications
 
-hello
+- Languages:
+  - HTML & CSS
+  - Java 21
+  - Typescript
+- Frameworks:
+  - Spring Boot for Backend
+  - Angular 17 for Frontend
+- Build Tool:
+  - Maven
+- Databases:
+  - MySQL for user information and bookings
+  - MongoDB for resumes
+- Technologies:
+  - RESTful API
+  - JWT for user authentication and authorisation
+  - Email for registration auto-confirmation
+  - Ollama4j for AI model service
+  - Digital Ocean for storage of images and droplet (VM) to run Ollama model
+  - Stripe integration for payment
+  - Google Calendar integration for booking and scheduling
+  - Angular Material as UI component framework
+  - Angular PWA ([Link](https://www.npmjs.com/package/@angular/pwa))
+  - Angular Service worker ([Link](https://www.npmjs.com/package/@angular/service-worker))
+  - Docker for containerization
+  - Railway for deployment
 
 ## Miscellaneous
 
 #### _Further Developments_:
 
-- Add more template selections for diferent jobs
--
+- Add more template selections for different jobs
+- Integrate with job application portals for end-to-end solution
