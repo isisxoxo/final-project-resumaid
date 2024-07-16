@@ -33,7 +33,7 @@ ResumAId takes resume writing to a whole new level. It elevates the resume-writi
 
 1.
 
-<img src="final-project-backend-resumaid/src/main/resources/static/assets/Landing-page.png">
+<img src="final-project-backend-resumaid/src/main/resources/static/assets/Landing-page.png" width="500px">
 
 ## Specifications
 
