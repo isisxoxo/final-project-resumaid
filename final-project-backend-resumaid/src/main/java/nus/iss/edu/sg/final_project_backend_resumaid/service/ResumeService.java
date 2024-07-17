@@ -103,7 +103,7 @@ public class ResumeService {
 
         System.out.println("IN DELETE RESUME SERVICE: " + resume);
 
-        if (!resume.getUrl().equals("")) {
+        if (!resume.getUrl().equals("") && !resume.getUrl().equals("undefined")) {
             s3Repo.delete(resume.getUrl()); // Delete photo from DO
         }
         return resumeRepo.deleteResumeById(id); // Delete from MongoDB
