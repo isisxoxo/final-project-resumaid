@@ -17,7 +17,8 @@
                     </span>
                     <ng-template #elseBlock>
                         <div *ngIf="savedImgUrl$ | async as url" class="image">
-                            <img [src]="url">
+                            <img [src]="url" *ngIf="url != 'undefined'">
+                            <!-- <img [src]="url"> -->
                         </div>
                     </ng-template>
                 </div>
